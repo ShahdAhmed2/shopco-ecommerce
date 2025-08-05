@@ -15,7 +15,7 @@ import CartPage from './components/CartPage'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
-// 🟡 استيراد React Query
+
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
