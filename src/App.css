@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/Satoshi-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Satoshi';
+    src: url('./assets/fonts/Satoshi-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+@font-face {
+  font-family: 'Integral CF';
+  src: url('./assets/fonts/integral-cf-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+  * {
+    font-family: 'Satoshi', sans-serif;
+  }
+  .heading-integral {
+  font-family: 'Integral CF';
+  font-weight: 700;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+/* إخفاء الشريط في كروم وسفاري */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* إخفاء الشريط في فايرفوكس وإيدج */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
