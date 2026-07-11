@@ -7,6 +7,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import RelatedProducts from '../components/product/RelatedProducts';
 import WishlistButton from '../components/ui/WishlistButton';
+import ProductDetailsSkeleton from '../components/ui/ProductDetailsSkeleton';
 import './ProductDetails.css';
 
 /**
@@ -40,14 +41,7 @@ const ProductDetails = () => {
     return (
       <>
         <Header />
-        <div className="container py-5 text-center product-details-page d-flex align-items-center justify-content-center">
-          <div className="text-muted py-5">
-            <div className="spinner-border text-dark mb-3" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-            <p>Loading product details...</p>
-          </div>
-        </div>
+        <ProductDetailsSkeleton />
         <Footer />
       </>
     );

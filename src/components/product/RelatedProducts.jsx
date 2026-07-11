@@ -4,6 +4,7 @@ import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
 import toast from 'react-hot-toast';
 import ProductCard from './ProductCard';
+import ProductCardSkeleton from '../ui/ProductCardSkeleton';
 
 /**
  * RelatedProducts Component.
@@ -28,11 +29,12 @@ const RelatedProducts = ({ currentProductId, section }) => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-5 text-muted">
-        <div className="spinner-border spinner-border-sm text-dark mb-2" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <p className="small mb-0">Loading related items...</p>
+      <div className="row g-4 justify-content-center">
+        {[1, 2, 3, 4].map((i) => (
+          <div key={`related-skele-${i}`} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+            <ProductCardSkeleton className="w-100" style={{ maxWidth: '280px' }} />
+          </div>
+        ))}
       </div>
     );
   }

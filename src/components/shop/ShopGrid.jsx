@@ -8,6 +8,7 @@ import ProductCard from '../product/ProductCard';
 import ProductModal from '../product/ProductModal';
 import SortDropdown from './SortDropdown';
 import Pagination from '../ui/Pagination';
+import ProductCardSkeleton from '../ui/ProductCardSkeleton';
 import './ShopGrid.css';
 
 /**
@@ -149,12 +150,15 @@ const ShopGrid = ({ searchQuery }) => {
 
   if (isLoading) {
     return (
-      <div className="shop-grid d-flex align-items-center justify-content-center border rounded-3 bg-white">
-        <div className="text-center py-5 text-muted">
-          <div className="spinner-border text-dark mb-3" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-          <p className="mb-0">Loading products...</p>
+      <div className="shop-grid p-4 border rounded-3 bg-white">
+        <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2 pb-2 border-bottom">
+          <h5 className="fw-bold mb-0">All Products</h5>
+          <div className="skeleton-pulse" style={{ width: '120px', height: '35px', backgroundColor: '#f0f0f0', borderRadius: '4px' }}></div>
+        </div>
+        <div className="shop-products-layout">
+          {Array.from({ length: itemsPerPage }).map((_, idx) => (
+            <ProductCardSkeleton key={`shop-skele-${idx}`} style={{ width: '100%' }} />
+          ))}
         </div>
       </div>
     );

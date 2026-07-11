@@ -1,0 +1,85 @@
+.product-details-skeleton {
+  min-height: 80vh;
+}
+
+.skeleton-breadcrumbs {
+  width: 250px;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-details-image {
+  width: 100%;
+  height: 500px;
+  background-color: #f0f0f0;
+}
+
+.skeleton-details-title {
+  width: 70%;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-details-rating {
+  width: 150px;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-details-price {
+  width: 200px;
+  height: 35px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-details-text {
+  width: 100%;
+  height: 18px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-option-label {
+  width: 100px;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.skeleton-color-pill {
+  width: 70px;
+  height: 31px;
+  background-color: #f0f0f0;
+  border-radius: 50rem;
+}
+
+.skeleton-size-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
+
+.skeleton-qty-selector {
+  width: 110px;
+  height: 46px;
+  background-color: #f0f0f0;
+  border-radius: 50rem;
+}
+
+.skeleton-cart-btn {
+  height: 46px;
+  background-color: #e0e0e0;
+  border-radius: 50rem;
+}
+
+.skeleton-wish-btn {
+  width: 50px;
+  height: 50px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}

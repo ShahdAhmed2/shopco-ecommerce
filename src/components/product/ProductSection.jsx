@@ -5,6 +5,7 @@ import { useCart } from '../../contexts/CartContext';
 import toast from 'react-hot-toast';
 import ProductCard from './ProductCard';
 import ProductModal from './ProductModal';
+import ProductCardSkeleton from '../ui/ProductCardSkeleton';
 
 /**
  * Reusable Product Listing Section Component
@@ -81,7 +82,15 @@ const ProductSection = ({
           style={isMobile ? { scrollSnapType: 'x mandatory' } : {}}
         >
           {isLoading ? (
-            <div className="text-center w-100">Loading...</div>
+            Array.from({ length: itemsToShow }).map((_, idx) => (
+              <ProductCardSkeleton
+                key={`section-skele-${idx}`}
+                style={{
+                  flex: isMobile ? '0 0 auto' : '0 0 auto',
+                  scrollSnapAlign: isMobile ? 'start' : 'unset',
+                }}
+              />
+            ))
           ) : displayed.length === 0 ? (
             <div className="text-center w-100">No products found.</div>
           ) : (
