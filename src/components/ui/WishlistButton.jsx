@@ -1,6 +1,5 @@
 import React from 'react';
 import { useWishlist } from '../../hooks/useWishlist';
-import toast from 'react-hot-toast';
 import './WishlistButton.css';
 
 /**
@@ -22,10 +21,8 @@ const WishlistButton = ({ product, className = '' }) => {
 
     if (isWishlisted) {
       removeFromWishlist(product.id);
-      toast.success(`${product.name} removed from wishlist!`);
     } else {
       addToWishlist(product);
-      toast.success(`${product.name} added to wishlist!`);
     }
   };
 

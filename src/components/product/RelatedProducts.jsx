@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
-import toast from 'react-hot-toast';
 import ProductCard from './ProductCard';
 import ProductCardSkeleton from '../ui/ProductCardSkeleton';
 
@@ -19,7 +18,6 @@ const RelatedProducts = ({ currentProductId, section }) => {
   const handleAddToCart = (product, e) => {
     e.stopPropagation();
     addToCart(product);
-    toast.success(`${product.name} added to cart!`);
   };
 
   // Exclude current product and slice to max 4 items

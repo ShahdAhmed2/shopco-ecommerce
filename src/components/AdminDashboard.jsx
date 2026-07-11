@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import './AdminDashboard.css';
 
 const API_URL = 'https://6888080aadf0e59551b8d6e4.mockapi.io/api/v1/products';
@@ -35,16 +35,14 @@ function AdminDashboard() {
   const addProduct = useMutation({
     mutationFn: (newProduct) => axios.post(API_URL, newProduct),
     onSuccess: () => {
-      toast.dismiss();
-      toast.success('Product added successfully!');
+      toast.success('Product created successfully!', { toastId: 'product-create-success' });
       queryClient.invalidateQueries(['products']);
       setShowModal(false);
       setCurrentProduct(emptyProduct);
     },
     onError: (error) => {
       console.error('Add product error:', error);
-      toast.dismiss();
-      toast.error('Failed to add product.');
+      toast.error(error?.message || 'Failed to add product.', { toastId: 'product-create-error' });
     },
   });
 
@@ -52,30 +50,26 @@ function AdminDashboard() {
     mutationFn: (updatedProduct) =>
       axios.put(`${API_URL}/${updatedProduct.id}`, updatedProduct),
     onSuccess: () => {
-      toast.dismiss();
-      toast.success('Product updated successfully!');
+      toast.success('Product updated successfully!', { toastId: 'product-update-success' });
       queryClient.invalidateQueries(['products']);
       setShowModal(false);
       setCurrentProduct(emptyProduct);
     },
     onError: (error) => {
       console.error('Edit product error:', error);
-      toast.dismiss();
-      toast.error('Failed to update product.');
+      toast.error(error?.message || 'Failed to update product.', { toastId: 'product-update-error' });
     },
   });
 
   const deleteProduct = useMutation({
     mutationFn: (id) => axios.delete(`${API_URL}/${id}`),
     onSuccess: () => {
-      toast.dismiss();
-      toast.success('Product deleted successfully!');
+      toast.success('Product deleted successfully!', { toastId: 'product-delete-success' });
       queryClient.invalidateQueries(['products']);
     },
     onError: (error) => {
       console.error('Delete product error:', error);
-      toast.dismiss();
-      toast.error('Failed to delete product.');
+      toast.error(error?.message || 'Failed to delete product.', { toastId: 'product-delete-error' });
     },
   });
 

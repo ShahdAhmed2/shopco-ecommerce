@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useProduct } from '../hooks/useProduct';
 import { useCart } from '../contexts/CartContext';
-import toast from 'react-hot-toast';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import RelatedProducts from '../components/product/RelatedProducts';
@@ -28,7 +27,6 @@ const ProductDetails = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart(product, selectedSize, selectedColor);
     }
-    toast.success(`${product.name} (Qty: ${quantity}) added to cart!`);
   };
 
   const safeRating = product ? Math.max(0, Math.min(5, Math.floor(product.rating || 0))) : 0;

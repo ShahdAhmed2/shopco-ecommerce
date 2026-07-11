@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
@@ -96,12 +97,18 @@ export const CartProvider = ({ children }) => {
       type: 'ADD_TO_CART',
       payload: { ...product, size, color }
     });
+    toast.success('Product added to cart', {
+      toastId: `add-to-cart-${product.id}-${size}-${color}`
+    });
   };
 
   const removeFromCart = (product, size, color) => {
     dispatch({
       type: 'REMOVE_FROM_CART',
       payload: { id: product.id, size, color }
+    });
+    toast.info('Product removed from cart', {
+      toastId: `remove-from-cart-${product.id}-${size}-${color}`
     });
   };
 
@@ -114,6 +121,9 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
+    toast.warn('Cart cleared', {
+      toastId: 'cart-cleared'
+    });
   };
 
   const getCartTotal = () => {
@@ -129,6 +139,20 @@ export const CartProvider = ({ children }) => {
     return state.items.reduce((count, item) => count + item.quantity, 0);
   };
 
+  const applyPromoCode = (code) => {
+    if (code.toLowerCase() === 'save20') {
+      toast.success('Promo code applied successfully!', {
+        toastId: 'promo-success'
+      });
+      return true;
+    } else {
+      toast.error('Invalid promo code', {
+        toastId: 'promo-error'
+      });
+      return false;
+    }
+  };
+
   const value = {
     items: state.items,
     addToCart,
@@ -136,7 +160,8 @@ export const CartProvider = ({ children }) => {
     updateQuantity,
     clearCart,
     getCartTotal,
-    getCartCount
+    getCartCount,
+    applyPromoCode
   };
 
   return (

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
-import toast from 'react-hot-toast';
 import ProductCard from './ProductCard';
 import ProductModal from './ProductModal';
 import ProductCardSkeleton from '../ui/ProductCardSkeleton';
@@ -62,7 +61,6 @@ const ProductSection = ({
   const handleAddToCart = (product, e) => {
     e.stopPropagation();
     addToCart(product, selectedSize, selectedColor);
-    toast.success(`${product.name} added to cart!`);
   };
 
   const displayed = showAll ? products : products.slice(0, itemsToShow);
@@ -132,7 +130,6 @@ const ProductSection = ({
           setSelectedColor={setSelectedColor}
           onAddToCart={() => {
             addToCart(selectedProduct, selectedSize, selectedColor);
-            toast.success(`${selectedProduct.name} added to cart!`);
             closeModal();
           }}
         />

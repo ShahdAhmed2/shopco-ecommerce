@@ -5,7 +5,6 @@ import { useCart } from '../contexts/CartContext';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import ProductCard from '../components/product/ProductCard';
-import toast from 'react-hot-toast';
 import './Wishlist.css';
 
 const Wishlist = () => {
@@ -15,7 +14,6 @@ const Wishlist = () => {
   const handleAddToCart = (product, e) => {
     e.stopPropagation();
     addToCart(product, 'M', 'Black');
-    toast.success(`${product.name} added to cart!`);
   };
 
   const isFewItems = wishlistItems.length > 0 && wishlistItems.length < 4;

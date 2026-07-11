@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
 import { useFilters } from '../../contexts/FilterContext';
-import toast from 'react-hot-toast';
 import ProductCard from '../product/ProductCard';
 import ProductModal from '../product/ProductModal';
 import SortDropdown from './SortDropdown';
@@ -145,7 +144,6 @@ const ShopGrid = ({ searchQuery }) => {
   const handleAddToCart = (product, e) => {
     e.stopPropagation();
     addToCart(product, selectedSize, selectedColor);
-    toast.success(`${product.name} added to cart!`);
   };
 
   if (isLoading) {
@@ -223,7 +221,6 @@ const ShopGrid = ({ searchQuery }) => {
         setSelectedColor={setSelectedColor}
         onAddToCart={() => {
           addToCart(selectedProduct, selectedSize, selectedColor);
-          toast.success(`${selectedProduct.name} added to cart!`);
           closeModal();
         }}
       />

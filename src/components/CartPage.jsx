@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
-import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import './CartPage.css';
 
 const CartPage = () => {
-  const { items, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  const { items, removeFromCart, updateQuantity, getCartTotal, applyPromoCode } = useCart();
   const [promoCode, setPromoCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState(0);
 
@@ -17,11 +16,8 @@ const CartPage = () => {
   const total = subtotal - discountAmount + deliveryFee;
 
   const handleApplyPromo = () => {
-    if (promoCode.toLowerCase() === 'save20') {
+    if (applyPromoCode(promoCode)) {
       setAppliedDiscount(20);
-      toast.success('Promo code applied successfully!');
-    } else {
-      toast.error('Invalid promo code');
     }
   };
 
@@ -33,7 +29,6 @@ const CartPage = () => {
 
   const handleRemoveItem = (item) => {
     removeFromCart(item, item.size, item.color);
-    toast.success('Item removed from cart');
   };
 
   if (items.length === 0) {
