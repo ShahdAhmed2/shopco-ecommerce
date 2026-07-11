@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useProduct } from '../hooks/useProduct';
 import { useCart } from '../contexts/CartContext';
 import toast from 'react-hot-toast';
@@ -92,10 +92,10 @@ const ProductDetails = () => {
         <nav aria-label="breadcrumb" className="mb-4">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <a href="/" className="text-decoration-none text-dark">Home</a>
+              <Link to="/" className="text-decoration-none text-dark">Home</Link>
             </li>
             <li className="breadcrumb-item">
-              <a href="/shop" className="text-decoration-none text-dark">Shop</a>
+              <Link to="/shop" className="text-decoration-none text-dark">Shop</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
               {product.name}
@@ -146,8 +146,7 @@ const ProductDetails = () => {
             </div>
             
             <p className="text-muted mb-4">
-              Step up your style game with this premium apparel. Carefully designed with comfort and durability in mind, 
-              it transitions effortlessly from day to night, making it a versatile staple in your wardrobe.
+              {product.description || "Step up your style game with this premium apparel. Carefully designed with comfort and durability in mind, it transitions effortlessly from day to night, making it a versatile staple in your wardrobe."}
             </p>
             
             <hr />
