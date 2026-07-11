@@ -5,6 +5,7 @@ import { useFilters } from '../../contexts/FilterContext';
 import toast from 'react-hot-toast';
 import ProductCard from '../product/ProductCard';
 import ProductModal from '../product/ProductModal';
+import SortDropdown from './SortDropdown';
 import './ShopGrid.css';
 
 /**
@@ -21,6 +22,7 @@ const ShopGrid = ({ searchQuery }) => {
     minPrice,
     maxPrice,
     rating,
+    sort,
   } = useFilters();
 
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -86,13 +88,30 @@ const ShopGrid = ({ searchQuery }) => {
       return actualPrice >= minPrice && actualPrice <= maxPrice;
     });
 
-    // 7. Rating match
-    if (rating > 0) {
-      result = result.filter((p) => p.rating && p.rating >= rating);
+    // 8. Sorting
+    if (sort) {
+      result = [...result];
+      if (sort === 'price-asc') {
+        result.sort((a, b) => {
+          const priceA = a.discount ? a.price * (1 - a.discount / 100) : a.price;
+          const priceB = b.discount ? b.price * (1 - b.discount / 100) : b.price;
+          return priceA - priceB;
+        });
+      } else if (sort === 'price-desc') {
+        result.sort((a, b) => {
+          const priceA = a.discount ? a.price * (1 - a.discount / 100) : a.price;
+          const priceB = b.discount ? b.price * (1 - b.discount / 100) : b.price;
+          return priceB - priceA;
+        });
+      } else if (sort === 'rating-desc') {
+        result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      } else if (sort === 'newest') {
+        result.sort((a, b) => Number(b.id) - Number(a.id));
+      }
     }
 
     return result;
-  }, [products, searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating]);
+  }, [products, searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -149,7 +168,10 @@ const ShopGrid = ({ searchQuery }) => {
 
   return (
     <div className="shop-grid p-4 border rounded-3 bg-white">
-      <h5 className="fw-bold mb-4">All Products</h5>
+      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2 pb-2 border-bottom">
+        <h5 className="fw-bold mb-0">All Products</h5>
+        <SortDropdown />
+      </div>
       
       {/* Product Cards Layout Grid */}
       <div className="shop-products-layout">
