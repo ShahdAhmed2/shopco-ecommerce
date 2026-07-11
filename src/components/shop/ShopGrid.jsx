@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import ProductCard from '../product/ProductCard';
 import ProductModal from '../product/ProductModal';
 import SortDropdown from './SortDropdown';
+import Pagination from '../ui/Pagination';
 import './ShopGrid.css';
 
 /**
@@ -31,6 +32,14 @@ const ShopGrid = ({ searchQuery }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState('Black');
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+
+  // Reset to page 1 whenever filters, search, or sorting change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
 
   // Multi-tier client-side product filtering
   const filteredProducts = useMemo(() => {
@@ -115,6 +124,13 @@ const ShopGrid = ({ searchQuery }) => {
     return result;
   }, [products, searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
 
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProducts, currentPage, itemsPerPage]);
+
   const openModal = (product) => {
     setSelectedProduct(product);
     setShowModal(true);
@@ -177,7 +193,7 @@ const ShopGrid = ({ searchQuery }) => {
       
       {/* Product Cards Layout Grid */}
       <div className="shop-products-layout">
-        {filteredProducts.map((product) => (
+        {paginatedProducts.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -186,6 +202,12 @@ const ShopGrid = ({ searchQuery }) => {
           />
         ))}
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
 
       <ProductModal
         product={selectedProduct}

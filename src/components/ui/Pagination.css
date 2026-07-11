@@ -1,0 +1,44 @@
+.pagination-container {
+  font-family: inherit;
+}
+
+.prev-next-btn {
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-color: #e0e0e0;
+}
+
+.prev-next-btn:hover:not(:disabled) {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+  transform: translateY(-1px);
+}
+
+.prev-next-btn:disabled {
+  border-color: #f0f0f0;
+  background-color: #fff;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-number-btn {
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.page-number-btn:hover {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+.page-number-btn.btn-dark {
+  background-color: #000;
+  border-color: #000;
+  color: #fff;
+}
+
+.page-number-btn.btn-dark:hover {
+  background-color: #222;
+  color: #fff;
+}
