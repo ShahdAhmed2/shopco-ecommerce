@@ -3,6 +3,7 @@ import { useProducts } from '../hooks/useProducts';
 import { useCart } from '../contexts/CartContext';
 import toast from 'react-hot-toast';
 import ProductModal from './product/ProductModal';
+import ProductCard from './product/ProductCard';
 import './TopSelling.css';
 
 const TopSelling = () => {
@@ -61,66 +62,19 @@ const TopSelling = () => {
           ) : displayed.length === 0 ? (
             <div className="text-center w-100">No products found.</div>
           ) : (
-            displayed.map((product, index) => {
-              const safeRating = Math.max(0, Math.min(5, Math.floor(product.rating || 0)));
-              const discountPercent = product.discount ? `${product.discount}% OFF` : null;
-
-              return (
-                <div
-                  key={product.id}
-                  className="card product-card border-0 text-center bg-white flex-shrink-0 animate-entry"
-                  style={{
-                    width: '300px',
-                    flex: isMobile ? '0 0 auto' : '0 0 auto',
-                    scrollSnapAlign: isMobile ? 'start' : 'unset',
-                    animationDelay: `${index * 0.1}s`,
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => openModal(product)}
-                >
-                  <img
-                    src={product.image || 'https://via.placeholder.com/300x260.png'}
-                    alt={product.name}
-                    className="img-fluid mb-2"
-                    style={{
-                      width: '100%',
-                      height: '260px',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                    }}
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/300x260.png';
-                    }}
-                  />
-                  <div className="card-body p-2">
-                    <div className="text-warning mb-1" style={{ fontSize: '0.9rem' }}>
-                      {'★'.repeat(safeRating)}
-                      {'☆'.repeat(5 - safeRating)}
-                      <span className="ms-1 text-dark small">
-                        {product.rating ? `${product.rating}/5` : ''}
-                      </span>
-                    </div>
-                    <div className="fw-semibold mb-1" style={{ fontSize: '1rem' }}>
-                      {product.name}
-                    </div>
-                    <div className="mb-2">
-                      <span className="fw-bold me-2">${product.price}</span>
-                      {discountPercent && (
-                        <span className="text-danger small bg-light px-2 py-1 rounded">
-                          {discountPercent}
-                        </span>
-                      )}
-                    </div>
-                    <button
-                      className="btn btn-dark btn-sm w-100"
-                      onClick={(e) => handleAddToCart(product, e)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              );
-            })
+            displayed.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onClick={() => openModal(product)}
+                style={{
+                  flex: isMobile ? '0 0 auto' : '0 0 auto',
+                  scrollSnapAlign: isMobile ? 'start' : 'unset',
+                  animationDelay: `${index * 0.1}s`,
+                }}
+                onAddToCart={(e) => handleAddToCart(product, e)}
+              />
+            ))
           )}
         </div>
 
@@ -135,6 +89,7 @@ const TopSelling = () => {
             </button>
           </div>
         )}
+
         <ProductModal
           product={selectedProduct}
           isOpen={showModal}
