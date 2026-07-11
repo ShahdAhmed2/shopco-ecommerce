@@ -11,6 +11,16 @@ export const productService = {
   },
 
   /**
+   * Fetch a single product from the mock database by ID
+   * @param {string|number} id - Product ID
+   * @returns {Promise<Object>} The product details
+   */
+  getProductById: async (id) => {
+    const response = await api.get(`/products/${id}`);
+    return response.data;
+  },
+
+  /**
    * Fetch products filtered by section
    * @param {string} section - The section type (e.g. 'new-arrivals', 'top-selling')
    * @returns {Promise<Array>} List of products belonging to the section
