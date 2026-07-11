@@ -1,7 +1,25 @@
 .filter-sidebar {
-  min-height: 300px;
+  min-height: 400px;
 }
 
-.placeholder-content {
-  border: 2px dashed #ddd;
+.filter-link-btn {
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+.filter-link-btn:hover {
+  color: #000 !important;
+}
+
+.color-dot-btn {
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.color-dot-btn:hover {
+  transform: scale(1.15);
+}
+
+.color-dot-btn.active {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
 }
