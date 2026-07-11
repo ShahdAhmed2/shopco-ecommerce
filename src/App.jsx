@@ -6,6 +6,7 @@ import ProductDetails from './pages/ProductDetails';
 import AdminDashboard from './components/AdminDashboard';
 import CartPage from './components/CartPage';
 import Wishlist from './pages/Wishlist';
+import NotFound from './pages/NotFound';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import './App.css';
@@ -26,6 +27,7 @@ function App() {
             <Footer />
           </>
         } />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
