@@ -1,0 +1,16 @@
+.product-details-page {
+  min-height: 80vh;
+}
+
+.image-gallery-placeholder {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #ddd;
+}
+
+.related-products-placeholder {
+  border: 2px dashed #ddd;
+}
