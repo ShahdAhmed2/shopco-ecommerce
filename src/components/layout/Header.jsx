@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
+import { useWishlist } from '../../hooks/useWishlist';
 
 
 const Header = () => {
   const [showBanner, setShowBanner] = useState(true);
   const { getCartCount } = useCart();
+  const { wishlistItems } = useWishlist();
 
   return (
     <header>
@@ -88,6 +90,14 @@ const Header = () => {
                   }}
                 />
               </div>
+              <Link to="/wishlist" className="position-relative text-decoration-none me-1">
+                <i className="bi bi-heart fs-5 text-dark"></i>
+                {wishlistItems.length > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.7rem' }}>
+                    {wishlistItems.length}
+                  </span>
+                )}
+              </Link>
               <Link to="/cart" className="position-relative text-decoration-none">
                 <i className="bi bi-cart fs-5 text-dark"></i>
                 {getCartCount() > 0 && (

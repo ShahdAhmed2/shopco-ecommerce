@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import WishlistButton from '../ui/WishlistButton';
 
 /**
  * Reusable Product Card Component
@@ -46,10 +47,12 @@ const ProductCard = ({
       style={{
         width: '300px',
         cursor: 'pointer',
+        position: 'relative',
         ...style,
       }}
       onClick={handleCardClick}
     >
+      <WishlistButton product={product} className="wishlist-card-overlay" />
       <img
         src={product.image || 'https://via.placeholder.com/300x260.png'}
         alt={product.name}

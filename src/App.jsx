@@ -5,6 +5,7 @@ import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
 import AdminDashboard from './components/AdminDashboard';
 import CartPage from './components/CartPage';
+import Wishlist from './pages/Wishlist';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import './App.css';
@@ -17,6 +18,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={
           <>
             <Header />

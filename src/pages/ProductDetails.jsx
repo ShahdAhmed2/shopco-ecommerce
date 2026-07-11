@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import RelatedProducts from '../components/product/RelatedProducts';
+import WishlistButton from '../components/ui/WishlistButton';
 import './ProductDetails.css';
 
 /**
@@ -214,6 +215,7 @@ const ProductDetails = () => {
               >
                 Add to Cart
               </button>
+              <WishlistButton product={product} className="wishlist-detail-btn" />
             </div>
           </div>
         </div>
