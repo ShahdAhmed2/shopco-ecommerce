@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
 import { useFilters } from '../../contexts/FilterContext';
@@ -13,6 +14,7 @@ import './ShopGrid.css';
  */
 const ShopGrid = ({ searchQuery }) => {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   const { data: products = [], isLoading, isError, error } = useProducts();
   const {
     category,
@@ -179,7 +181,7 @@ const ShopGrid = ({ searchQuery }) => {
           <ProductCard
             key={product.id}
             product={product}
-            onClick={() => openModal(product)}
+            onClick={() => navigate(`/product/${product.id}`)}
             onAddToCart={(e) => handleAddToCart(product, e)}
           />
         ))}

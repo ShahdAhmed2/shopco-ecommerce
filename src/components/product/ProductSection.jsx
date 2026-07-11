@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
 import toast from 'react-hot-toast';
@@ -25,6 +26,7 @@ const ProductSection = ({
   const [showAll, setShowAll] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(initialItems || (isMobile ? 2 : 4));
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const { data: products = [], isLoading } = useProducts(section);
 
@@ -87,7 +89,7 @@ const ProductSection = ({
               <ProductCard
                 key={product.id}
                 product={product}
-                onClick={() => openModal(product)}
+                onClick={() => navigate(`/product/${product.id}`)}
                 style={{
                   flex: isMobile ? '0 0 auto' : '0 0 auto',
                   scrollSnapAlign: isMobile ? 'start' : 'unset',

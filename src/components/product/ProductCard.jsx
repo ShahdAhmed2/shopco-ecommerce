@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Reusable Product Card Component
@@ -20,6 +21,7 @@ const ProductCard = ({
   style = {},
   onAddToCart,
 }) => {
+  const navigate = useNavigate();
   const safeRating = Math.max(0, Math.min(5, Math.floor(product.rating || 0)));
   const discountPercent = product.discount ? `${product.discount}% OFF` : null;
 
@@ -27,6 +29,14 @@ const ProductCard = ({
     e.stopPropagation();
     if (onAddToCart) {
       onAddToCart(e);
+    }
+  };
+
+  const handleCardClick = (e) => {
+    if (onClick) {
+      onClick(e);
+    } else {
+      navigate(`/product/${product.id}`);
     }
   };
 
@@ -38,7 +48,7 @@ const ProductCard = ({
         cursor: 'pointer',
         ...style,
       }}
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       <img
         src={product.image || 'https://via.placeholder.com/300x260.png'}
