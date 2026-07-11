@@ -5,6 +5,7 @@ import { useCart } from '../contexts/CartContext';
 import toast from 'react-hot-toast';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import RelatedProducts from '../components/product/RelatedProducts';
 import './ProductDetails.css';
 
 /**
@@ -220,11 +221,8 @@ const ProductDetails = () => {
 
         {/* Related Products Section */}
         <div className="mt-5 pt-4 border-top">
-          <h4 className="fw-bold mb-4">You Might Also Like</h4>
-          <div className="related-products-placeholder border border-dashed rounded-3 p-5 text-center text-muted bg-light">
-            <i className="bi bi-collection fs-1 mb-2 d-block"></i>
-            <span>Related Products Catalog Grid Placeholder</span>
-          </div>
+          <h4 className="fw-bold mb-4 text-center text-lg-start heading-integral">You Might Also Like</h4>
+          <RelatedProducts currentProductId={product.id} section={product.section} />
         </div>
       </div>
       <Footer />
