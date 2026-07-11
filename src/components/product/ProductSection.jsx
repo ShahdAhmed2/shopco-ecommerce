@@ -1,29 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { useProducts } from '../hooks/useProducts';
-import { useCart } from '../contexts/CartContext';
+import { useProducts } from '../../hooks/useProducts';
+import { useCart } from '../../contexts/CartContext';
 import toast from 'react-hot-toast';
-import ProductModal from './product/ProductModal';
-import ProductCard from './product/ProductCard';
-import './NewArrivals.css';
+import ProductCard from './ProductCard';
+import ProductModal from './ProductModal';
 
-const NewArrivals = () => {
+/**
+ * Reusable Product Listing Section Component
+ * @param {Object} props
+ * @param {string} props.title - Heading title text (e.g. 'NEW ARRIVALS')
+ * @param {string} props.section - Filter section name ('new-arrivals' | 'top-selling')
+ * @param {boolean} [props.showViewAll=true] - Toggle display of the View All / Show Less button
+ * @param {number} [props.initialItems] - Optional initial item count limit (defaults to auto based on mobile breakpoint)
+ * @param {string} [props.className=''] - Custom CSS class
+ */
+const ProductSection = ({
+  title,
+  section,
+  showViewAll = true,
+  initialItems,
+  className = '',
+}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [showAll, setShowAll] = useState(false);
-  const [itemsToShow, setItemsToShow] = useState(isMobile ? 2 : 4);
+  const [itemsToShow, setItemsToShow] = useState(initialItems || (isMobile ? 2 : 4));
   const { addToCart } = useCart();
 
-  const { data: products = [], isLoading } = useProducts('new-arrivals');
+  const { data: products = [], isLoading } = useProducts(section);
 
   useEffect(() => {
     const handleResize = () => {
       const nowMobile = window.innerWidth < 768;
       setIsMobile(nowMobile);
-      setItemsToShow(nowMobile ? 2 : 4);
+      if (!initialItems) {
+        setItemsToShow(nowMobile ? 2 : 4);
+      }
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [initialItems]);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -49,12 +65,12 @@ const NewArrivals = () => {
   const displayed = showAll ? products : products.slice(0, itemsToShow);
 
   return (
-    <section className="py-5 bg-white">
+    <section className={`py-5 bg-white ${className}`}>
       <div
         className="container"
         style={{ borderBottom: '1px solid #0000001A', paddingBottom: '40px' }}
       >
-        <h2 className="fw-bold text-center heading-integral mb-4 happy-heading">NEW ARRIVALS</h2>
+        <h2 className="fw-bold text-center heading-integral mb-4 happy-heading">{title}</h2>
 
         <div
           className={`d-flex gap-3 ${
@@ -83,11 +99,11 @@ const NewArrivals = () => {
           )}
         </div>
 
-        {products.length > itemsToShow && (
+        {showViewAll && products.length > itemsToShow && (
           <div className="text-center mt-4">
             <button
               className="btn btn-outline-dark rounded-pill custom-btn-mobile"
-              style={{ padding: '10px 50px' , borderColor: '#bdc0c2ff'}}
+              style={{ padding: '10px 50px', borderColor: '#bdc0c2ff' }}
               onClick={() => setShowAll((v) => !v)}
             >
               {showAll ? 'Show Less' : 'View All'}
@@ -114,4 +130,4 @@ const NewArrivals = () => {
   );
 };
 
-export default NewArrivals;
+export default ProductSection;
