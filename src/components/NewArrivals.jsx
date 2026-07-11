@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useProducts } from '../hooks/useProducts';
 import { useCart } from '../contexts/CartContext';
 import toast from 'react-hot-toast';
+import ProductModal from './product/ProductModal';
 import './NewArrivals.css';
 
 const NewArrivals = () => {
@@ -138,117 +139,20 @@ const NewArrivals = () => {
             </button>
           </div>
         )}
-
-        {showModal && selectedProduct && (
-          <div
-            className="modal fade show"
-            tabIndex="-1"
-            style={{
-              display: 'block',
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 1050,
-            }}
-            onClick={closeModal}
-          >
-            <div
-              className="modal-dialog modal-dialog-centered"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="modal-content p-3">
-                <div className="modal-header">
-                  <h5 className="modal-title">{selectedProduct.name}</h5>
-                  <button type="button" className="btn-close" onClick={closeModal}></button>
-                </div>
-                <div className="modal-body">
-                  <img
-                    src={selectedProduct.image}
-                    alt={selectedProduct.name}
-                    className="img-fluid mb-3"
-                    style={{ borderRadius: '10px' }}
-                  />
-                  <p><strong>Price:</strong> ${selectedProduct.price}</p>
-                  {selectedProduct.discount && (
-                    <p>
-                      <strong>Discount:</strong>{' '}
-                      <span className="text-danger">{selectedProduct.discount}%</span>
-                    </p>
-                  )}
-                  <p><strong>Rating:</strong> {selectedProduct.rating}/5</p>
-                  
-                  {/* Size Selection */}
-                  <div className="mb-3">
-                    <label className="form-label"><strong>Size:</strong></label>
-                    <div className="btn-group" role="group">
-                      {['XS', 'S', 'M', 'L', 'XL'].map(size => (
-                        <input
-                          key={size}
-                          type="radio"
-                          className="btn-check"
-                          name="size"
-                          id={`size-${size}`}
-                          checked={selectedSize === size}
-                          onChange={() => setSelectedSize(size)}
-                        />
-                      ))}
-                      {['XS', 'S', 'M', 'L', 'XL'].map(size => (
-                        <label
-                          key={size}
-                          className={`btn btn-outline-dark ${selectedSize === size ? 'active' : ''}`}
-                          htmlFor={`size-${size}`}
-                        >
-                          {size}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Color Selection */}
-                  <div className="mb-3">
-                    <label className="form-label"><strong>Color:</strong></label>
-                    <div className="btn-group" role="group">
-                      {['Black', 'White', 'Red', 'Blue'].map(color => (
-                        <input
-                          key={color}
-                          type="radio"
-                          className="btn-check"
-                          name="color"
-                          id={`color-${color}`}
-                          checked={selectedColor === color}
-                          onChange={() => setSelectedColor(color)}
-                        />
-                      ))}
-                      {['Black', 'White', 'Red', 'Blue'].map(color => (
-                        <label
-                          key={color}
-                          className={`btn btn-outline-dark ${selectedColor === color ? 'active' : ''}`}
-                          htmlFor={`color-${color}`}
-                        >
-                          {color}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    className="btn btn-dark w-100"
-                    onClick={() => {
-                      addToCart(selectedProduct, selectedSize, selectedColor);
-                      toast.success(`${selectedProduct.name} added to cart!`);
-                      closeModal();
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        <ProductModal
+          product={selectedProduct}
+          isOpen={showModal}
+          onClose={closeModal}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          onAddToCart={() => {
+            addToCart(selectedProduct, selectedSize, selectedColor);
+            toast.success(`${selectedProduct.name} added to cart!`);
+            closeModal();
+          }}
+        />
       </div>
     </section>
   );
