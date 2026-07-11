@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useProducts } from '../hooks/useProducts';
 import { useCart } from '../contexts/CartContext';
 import toast from 'react-hot-toast';
 import './NewArrivals.css';
-
-const API_URL = 'https://6888080aadf0e59551b8d6e4.mockapi.io/api/v1/products';
-
-const fetchProducts = async () => {
-  const res = await axios.get(API_URL);
-  return res.data.filter((p) => p.section === 'new-arrivals');
-};
 
 const NewArrivals = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -18,10 +10,7 @@ const NewArrivals = () => {
   const [itemsToShow, setItemsToShow] = useState(isMobile ? 2 : 4);
   const { addToCart } = useCart();
 
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ['new-arrivals'],
-    queryFn: fetchProducts,
-  });
+  const { data: products = [], isLoading } = useProducts('new-arrivals');
 
   useEffect(() => {
     const handleResize = () => {
