@@ -43,3 +43,10 @@
   display: none;
  }
 }
+
+/* Active NavLink styles */
+.navbar-nav .nav-link.active {
+  color: #000 !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid #000;
+}

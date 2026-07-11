@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useWishlist } from '../../hooks/useWishlist';
 
@@ -63,31 +63,31 @@ const Header = () => {
           {/* Navbar */}
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mx-auto d-flex align-items-center gap-4">
-              {/* Shop Dropdown */}
-              <li className="nav-item dropdown custom-dropdown">
-                <a
-                  className="nav-link dropdown-toggle fw-medium"
-                  href="#"
-                  id="shopDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop" end>
                   Shop
-                </a>
-                <ul className="dropdown-menu custom-menu" aria-labelledby="shopDropdown">
-                  <li><a className="dropdown-item text-white" href="#">Versace</a></li>
-                  <li><a className="dropdown-item text-white" href="#">Zara</a></li>
-                  <li><a className="dropdown-item text-white" href="#">Gucci</a></li>
-                  <li><a className="dropdown-item text-white" href="#">Prada</a></li>
-                  <li><a className="dropdown-item text-white" href="#">Calvin Klein</a></li>
-                </ul>
+                </NavLink>
               </li>
-              {/* Other nav links */}
-              <li className="nav-item"><a className="nav-link fw-medium" href="#">On Sale</a></li>
-              <li className="nav-item"><a className="nav-link fw-medium" href="#">New Arrivals</a></li>
-              <li className="nav-item"><a className="nav-link fw-medium" href="#">Brands</a></li>
-              <li className="nav-item"><Link className="nav-link fw-medium" to="/admin">Dashboard</Link></li>
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?sale=true">
+                  On Sale
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?section=new-arrivals">
+                  New Arrivals
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?brands=true">
+                  Brands
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/admin">
+                  Dashboard
+                </NavLink>
+              </li>
             </ul>
 
             {/* Search & Icons */}
