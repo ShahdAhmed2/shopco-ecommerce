@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useWishlist } from '../../hooks/useWishlist';
 
@@ -9,6 +9,30 @@ const Header = () => {
   const [showBanner, setShowBanner] = useState(true);
   const { getCartCount } = useCart();
   const { wishlistItems } = useWishlist();
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const urlSearch = searchParams.get('search') || '';
+  const [searchInput, setSearchInput] = useState(urlSearch);
+
+  // Sync search input value when URL parameter changes
+  useEffect(() => {
+    setSearchInput(urlSearch);
+  }, [urlSearch]);
+
+  const handleSearchSubmit = () => {
+    if (searchInput.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(searchInput.trim())}`);
+    } else {
+      navigate('/shop');
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit();
+    }
+  };
 
   return (
     <header>
@@ -77,7 +101,9 @@ const Header = () => {
                     transform: 'translateY(-50%)',
                     color: '#888',
                     fontSize: '16px',
+                    cursor: 'pointer',
                   }}
+                  onClick={handleSearchSubmit}
                 ></i>
                 <input
                   type="text"
@@ -88,6 +114,9 @@ const Header = () => {
                     background: 'rgba(240, 240, 240, 1)',
                     border: '1px solid #eee',
                   }}
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
               <Link to="/wishlist" className="position-relative text-decoration-none me-1">
