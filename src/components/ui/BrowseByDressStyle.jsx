@@ -1,8 +1,8 @@
 import React from 'react';
-import casualImg from '../assets/image 11.png';
-import formalImg from '../assets/image 13.png';
-import partyImg from '../assets/image 12.png';
-import gymImg from '../assets/image 14.png';
+import casualImg from '../../assets/image 11.png';
+import formalImg from '../../assets/image 13.png';
+import partyImg from '../../assets/image 12.png';
+import gymImg from '../../assets/image 14.png';
 import './BrowseByDressStyle.css'; 
 
 const BrowseByDressStyle = () => {

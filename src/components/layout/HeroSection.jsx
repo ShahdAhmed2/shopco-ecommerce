@@ -1,10 +1,10 @@
 import React from 'react';
-import image from "../assets/1.jpg";
-import img1 from "../assets/Vector (3).png";
-import img2 from "../assets/Vector (2).png";
-import img3 from "../assets/Vector (1).png";
-import img4 from "../assets/Vector.png";
-import img5 from "../assets/Group.png";
+import image from "../../assets/1.jpg";
+import img1 from "../../assets/Vector (3).png";
+import img2 from "../../assets/Vector (2).png";
+import img3 from "../../assets/Vector (1).png";
+import img4 from "../../assets/Vector.png";
+import img5 from "../../assets/Group.png";
 import './HeroSection.css';
 const HeroSection = () => (
   <section className=" position-relative hero " style={{ backgroundColor: '#F2F0F1' }}>

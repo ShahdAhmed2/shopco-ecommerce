@@ -1,5 +1,5 @@
 import React from 'react';
-import paymentImage from '../assets/Frame 53.png';
+import paymentImage from '../../assets/Frame 53.png';
 // import './Footer.css'
 const Footer = () => (
   <div className="position-relative" style={{ background: '#F0F0F0' }}>
