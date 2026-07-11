@@ -1,12 +1,13 @@
 import React from 'react';
 import FilterSidebar from './FilterSidebar';
 import ShopGrid from './ShopGrid';
+import SearchBar from './SearchBar';
 import './ShopLayout.css';
 
 /**
  * ShopLayout Component coordinating filters and grids.
  */
-const ShopLayout = () => {
+const ShopLayout = ({ searchQuery, setSearchQuery }) => {
   return (
     <div className="container py-4 shop-layout">
       {/* Breadcrumbs */}
@@ -27,7 +28,8 @@ const ShopLayout = () => {
           <FilterSidebar />
         </div>
         <div className="col-12 col-md-8 col-lg-9">
-          <ShopGrid />
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
+          <ShopGrid searchQuery={searchQuery} />
         </div>
       </div>
     </div>

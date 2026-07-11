@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../contexts/CartContext';
+import { useFilters } from '../../contexts/FilterContext';
 import toast from 'react-hot-toast';
 import ProductCard from '../product/ProductCard';
 import ProductModal from '../product/ProductModal';
@@ -9,14 +10,89 @@ import './ShopGrid.css';
 /**
  * ShopGrid Component rendering dynamically fetched products.
  */
-const ShopGrid = () => {
+const ShopGrid = ({ searchQuery }) => {
   const { addToCart } = useCart();
   const { data: products = [], isLoading, isError, error } = useProducts();
+  const {
+    category,
+    dressStyle,
+    color,
+    size,
+    minPrice,
+    maxPrice,
+    rating,
+  } = useFilters();
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState('Black');
+
+  // Multi-tier client-side product filtering
+  const filteredProducts = useMemo(() => {
+    let result = products;
+
+    // 1. Search term match (case-insensitive name match)
+    if (searchQuery) {
+      const term = searchQuery.toLowerCase();
+      result = result.filter((p) => p.name.toLowerCase().includes(term));
+    }
+
+    // 2. Category match
+    if (category) {
+      const term = category.toLowerCase();
+      result = result.filter((p) => p.category && p.category.toLowerCase() === term);
+    }
+
+    // 3. Dress Style match
+    if (dressStyle) {
+      const term = dressStyle.toLowerCase();
+      result = result.filter((p) => p.dressStyle && p.dressStyle.toLowerCase() === term);
+    }
+
+    // 4. Color match
+    if (color) {
+      const term = color.toLowerCase();
+      result = result.filter((p) => {
+        if (Array.isArray(p.colors)) {
+          return p.colors.some((c) => c.toLowerCase() === term);
+        }
+        if (typeof p.color === 'string') {
+          return p.color.toLowerCase() === term;
+        }
+        return false;
+      });
+    }
+
+    // 5. Size match
+    if (size) {
+      const term = size.toLowerCase();
+      result = result.filter((p) => {
+        if (Array.isArray(p.sizes)) {
+          return p.sizes.some((s) => s.toLowerCase() === term);
+        }
+        if (typeof p.size === 'string') {
+          return p.size.toLowerCase() === term;
+        }
+        return false;
+      });
+    }
+
+    // 6. Price range match (taking discount rate into account)
+    result = result.filter((p) => {
+      const actualPrice = p.discount
+        ? p.price * (1 - p.discount / 100)
+        : p.price;
+      return actualPrice >= minPrice && actualPrice <= maxPrice;
+    });
+
+    // 7. Rating match
+    if (rating > 0) {
+      result = result.filter((p) => p.rating && p.rating >= rating);
+    }
+
+    return result;
+  }, [products, searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating]);
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -59,7 +135,7 @@ const ShopGrid = () => {
     );
   }
 
-  if (products.length === 0) {
+  if (filteredProducts.length === 0) {
     return (
       <div className="shop-grid d-flex align-items-center justify-content-center border rounded-3 bg-white">
         <div className="text-center py-5 text-muted">
@@ -77,7 +153,7 @@ const ShopGrid = () => {
       
       {/* Product Cards Layout Grid */}
       <div className="shop-products-layout">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
             product={product}

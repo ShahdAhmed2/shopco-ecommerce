@@ -1,0 +1,13 @@
+.shop-search-bar .search-icon {
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 16px;
+}
+
+.shop-search-bar input {
+  background: #f0f0f0;
+  border: 1px solid #eee;
+  font-size: 15px;
+}
