@@ -81,12 +81,12 @@ function AdminDashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // منع التكرار أثناء التحميل
     if (addProduct.isPending || editProduct.isPending) {
       return;
     }
-    
+
     if (modalType === 'add') {
       addProduct.mutate(currentProduct);
     } else {
@@ -112,7 +112,7 @@ function AdminDashboard() {
     if (deleteProduct.isPending) {
       return;
     }
-    
+
     if (window.confirm('Are you sure you want to delete this product?')) {
       deleteProduct.mutate(id);
     }
@@ -132,18 +132,18 @@ function AdminDashboard() {
 
   return (
     <div className="container py-5" style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <SEO 
-        title="Admin Dashboard | SHOP.CO" 
-        description="Manage product listings and catalog items in the SHOP.CO administration dashboard." 
+      <SEO
+        title="Admin Dashboard | SHOP.CO"
+        description="Manage product listings and catalog items in the SHOP.CO administration dashboard."
       />
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold" style={{ color: '#121212' }}>Admin Dashboard</h2>
         <Link to="/" className="btn btn-outline-dark">← Home</Link>
       </div>
 
-      <Button 
-        variant="dark" 
-        className="mb-4 px-4 py-2 fw-semibold" 
+      <Button
+        variant="dark"
+        className="mb-4 px-4 py-2 fw-semibold"
         onClick={() => openModal('add')}
         disabled={addProduct.isPending || editProduct.isPending || deleteProduct.isPending}
       >
@@ -188,18 +188,18 @@ function AdminDashboard() {
                     </span>
                   </td>
                   <td>
-                    <Button 
-                      variant="outline-secondary" 
-                      size="sm" 
-                      className="me-2" 
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      className="me-2"
                       onClick={() => openModal('edit', product)}
                       disabled={addProduct.isPending || editProduct.isPending || deleteProduct.isPending}
                     >
                       Edit
                     </Button>
-                    <Button 
-                      variant="outline-danger" 
-                      size="sm" 
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
                       onClick={() => handleDelete(product.id)}
                       disabled={addProduct.isPending || editProduct.isPending || deleteProduct.isPending}
                     >
@@ -214,13 +214,13 @@ function AdminDashboard() {
       </div>
 
       {/* Modal */}
-      <Modal 
-        show={showModal} 
+      <Modal
+        show={showModal}
         onHide={() => {
           if (!addProduct.isPending && !editProduct.isPending) {
             setShowModal(false);
           }
-        }} 
+        }}
         centered
         backdrop={addProduct.isPending || editProduct.isPending ? 'static' : true}
         keyboard={!(addProduct.isPending || editProduct.isPending)}
@@ -231,24 +231,24 @@ function AdminDashboard() {
         <Form onSubmit={handleSubmit}>
           <Modal.Body>
             <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control name="name" value={currentProduct.name} onChange={handleChange} required />
+              <Form.Label htmlFor="prodName">Name</Form.Label>
+              <Form.Control id="prodName" name="name" value={currentProduct.name} onChange={handleChange} required />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Price</Form.Label>
-              <Form.Control name="price" type="number" value={currentProduct.price} onChange={handleChange} required min="0" step="0.01" />
+              <Form.Label htmlFor="prodPrice">Price</Form.Label>
+              <Form.Control id="prodPrice" name="price" type="number" value={currentProduct.price} onChange={handleChange} required min="0" step="0.01" />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Discount <span className="text-muted">(optional)</span></Form.Label>
-              <Form.Control name="discount" value={currentProduct.discount} onChange={handleChange} placeholder="e.g. 20% or 10" />
+              <Form.Label htmlFor="prodDiscount">Discount <span className="text-muted">(optional)</span></Form.Label>
+              <Form.Control id="prodDiscount" name="discount" value={currentProduct.discount} onChange={handleChange} placeholder="e.g. 20% or 10" />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Image URL</Form.Label>
-              <Form.Control name="image" value={currentProduct.image} onChange={handleChange} required />
+              <Form.Label htmlFor="prodImage">Image URL</Form.Label>
+              <Form.Control id="prodImage" name="image" value={currentProduct.image} onChange={handleChange} required />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Section</Form.Label>
-              <Form.Select name="section" value={currentProduct.section} onChange={handleChange}>
+              <Form.Label htmlFor="prodSection">Section</Form.Label>
+              <Form.Select id="prodSection" name="section" value={currentProduct.section} onChange={handleChange}>
                 <option value="new-arrivals">New Arrivals</option>
                 <option value="top-selling">Top Selling</option>
               </Form.Select>
@@ -258,9 +258,9 @@ function AdminDashboard() {
             <Button variant="secondary" onClick={() => setShowModal(false)} disabled={addProduct.isPending || editProduct.isPending}>
               Cancel
             </Button>
-            <Button 
-              variant="dark" 
-              type="submit" 
+            <Button
+              variant="dark"
+              type="submit"
               disabled={addProduct.isPending || editProduct.isPending}
             >
               {addProduct.isPending || editProduct.isPending ? 'Saving...' : (modalType === 'add' ? 'Add' : 'Save')}

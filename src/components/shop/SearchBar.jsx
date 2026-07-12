@@ -27,15 +27,27 @@ const SearchBar = ({ value, onChange }) => {
 
   return (
     <div className="shop-search-bar mb-4 position-relative">
-      <i 
-        className="bi bi-search position-absolute search-icon"
-        style={{ cursor: 'pointer' }}
+      <button
+        type="button"
+        className="position-absolute border-0 bg-transparent search-icon-btn"
+        style={{
+          left: '12px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'none',
+          padding: 0,
+          zIndex: 5
+        }}
         onClick={handleSubmit}
-      ></i>
+        aria-label="Submit search"
+      >
+        <i className="bi bi-search" style={{ cursor: 'pointer' }}></i>
+      </button>
       <input
         type="text"
         className="form-control rounded-pill ps-5 py-2"
         placeholder="Search products in shop..."
+        aria-label="Search products in shop"
         value={localVal}
         onChange={(e) => setLocalVal(e.target.value)}
         onKeyDown={handleKeyDown}

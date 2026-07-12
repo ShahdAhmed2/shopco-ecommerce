@@ -34,7 +34,7 @@ const HeroSection = () => (
               <div className="fw-bold fs-2">200+</div>
               <div className="text-muted small">International Brands</div>
             </div>
-            <div   className='bprderl'>
+            <div className='bprderl'>
               <div className="fw-bold fs-2">2,000+</div>
               <div className="text-muted small">High-Quality Products</div>
             </div>
@@ -53,8 +53,8 @@ const HeroSection = () => (
               alt="Fashion models"
               className="img-fluid w-100 hero-image"
               style={{
-                maxHeight: '700px', 
-                objectFit: 'contain', 
+                maxHeight: '700px',
+                objectFit: 'contain',
               }}
             />
             {/* Decorative Stars */}

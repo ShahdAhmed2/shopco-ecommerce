@@ -69,10 +69,17 @@ const ProductCard = ({
       />
       <div className="card-body p-2">
         {showRating && (
-          <div className="text-warning mb-1" style={{ fontSize: '0.9rem' }}>
-            {'★'.repeat(safeRating)}
-            {'☆'.repeat(5 - safeRating)}
-            <span className="ms-1 text-dark small">
+          <div 
+            className="text-warning mb-1" 
+            style={{ fontSize: '0.9rem' }}
+            aria-label={`Rating: ${product.rating || 0} out of 5 stars`}
+            title={`Rating: ${product.rating || 0} out of 5 stars`}
+          >
+            <span aria-hidden="true">
+              {'★'.repeat(safeRating)}
+              {'☆'.repeat(5 - safeRating)}
+            </span>
+            <span className="ms-1 text-dark small" aria-hidden="true">
               {product.rating ? `${product.rating}/5` : ''}
             </span>
           </div>

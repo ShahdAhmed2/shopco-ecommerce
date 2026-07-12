@@ -13,21 +13,21 @@ const Footer = () => (
       }}
     >
       <div className="newsletter-box bg-black text-white rounded-4 p-4 p-md-5 shadow d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
-      <h4
-  className=" container text-md-start mb-3 mb-md-0"
-  style={{
-    fontFamily: 'Integral CF',
-    fontWeight: 700,
-    fontSize: '32px',
-    lineHeight: '40px',
-    textTransform: 'uppercase',
-    flex: '1',
-    whiteSpace: 'normal', //  يخلي الكلام يلف تحت بعض
-    wordWrap: 'break-word'
-  }}
->
-  STAY UPTO DATE ABOUT OUR LATEST OFFERS
-</h4>
+        <h4
+          className=" container text-md-start mb-3 mb-md-0"
+          style={{
+            fontFamily: 'Integral CF',
+            fontWeight: 700,
+            fontSize: '32px',
+            lineHeight: '40px',
+            textTransform: 'uppercase',
+            flex: '1',
+            whiteSpace: 'normal', //  يخلي الكلام يلف تحت بعض
+            wordWrap: 'break-word'
+          }}
+        >
+          STAY UPTO DATE ABOUT OUR LATEST OFFERS
+        </h4>
 
 
         <form className="w-100" style={{ maxWidth: '400px' }}>
@@ -35,6 +35,7 @@ const Footer = () => (
             type="email"
             placeholder="Enter your email address"
             className="form-control rounded-pill px-4 py-2 mb-3"
+            aria-label="Email address for newsletter subscription"
           />
           <button
             type="submit"
@@ -53,8 +54,8 @@ const Footer = () => (
         {/* Links */}
         <div className="container row text-start pt-5 mt-5">
           <div className="col-12 col-md-3 mb-4 text-md-start">
-            <h5 className="fw-bold mb-3 fw-bold heading-integral" style={{fontSize:'30px'}}>SHOP.CO</h5>
-            
+            <h5 className="fw-bold mb-3 fw-bold heading-integral" style={{ fontSize: '30px' }}>SHOP.CO</h5>
+
             <p className="small mb-4" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
               We have clothes that suit your style and which you’ll love to wear. From women to men.
             </p>
@@ -87,7 +88,7 @@ const Footer = () => (
           <div className="small mb-3 mb-md-0 text-center text-md-start" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
             Shop.co © 2000–2023, All Rights Reserved
           </div>
-          <img src={paymentImage} alt="Payment Methods" height="50px"/>
+          <img src={paymentImage} alt="Payment Methods" height="50px" />
         </div>
       </div>
     </footer>

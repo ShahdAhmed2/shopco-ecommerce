@@ -16,3 +16,10 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Accessible focus outline for keyboard users */
+*:focus-visible {
+  outline: 3px solid var(--color-dark, #000) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.8) !important;
+}

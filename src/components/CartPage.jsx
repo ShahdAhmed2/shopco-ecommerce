@@ -35,9 +35,9 @@ const CartPage = () => {
   if (items.length === 0) {
     return (
       <div className="container py-5">
-        <SEO 
-          title="Shopping Cart | SHOP.CO" 
-          description="Your shopping cart is currently empty. Discover premium fashion, new arrivals and exclusive collections." 
+        <SEO
+          title="Shopping Cart | SHOP.CO"
+          description="Your shopping cart is currently empty. Discover premium fashion, new arrivals and exclusive collections."
         />
         <div className="text-center">
           <h2 className="fw-bold mb-4">YOUR CART</h2>
@@ -52,9 +52,9 @@ const CartPage = () => {
 
   return (
     <div className="cart-page">
-      <SEO 
-        title="Shopping Cart | SHOP.CO" 
-        description="Review items in your shopping bag, apply promo codes, and complete your purchase securely." 
+      <SEO
+        title="Shopping Cart | SHOP.CO"
+        description="Review items in your shopping bag, apply promo codes, and complete your purchase securely."
       />
       {/* Breadcrumbs */}
       <div className="container py-3">
@@ -99,13 +99,15 @@ const CartPage = () => {
                         <button
                           className="btn btn-outline-secondary btn-sm"
                           onClick={() => handleQuantityChange(item, item.quantity - 1)}
+                          aria-label={`Decrease quantity of ${item.name}`}
                         >
                           -
                         </button>
-                        <span className="mx-3">{item.quantity}</span>
+                        <span className="mx-3" aria-label={`Quantity: ${item.quantity}`}>{item.quantity}</span>
                         <button
                           className="btn btn-outline-secondary btn-sm"
                           onClick={() => handleQuantityChange(item, item.quantity + 1)}
+                          aria-label={`Increase quantity of ${item.name}`}
                         >
                           +
                         </button>
@@ -115,8 +117,9 @@ const CartPage = () => {
                       <button
                         className="btn btn-outline-danger btn-sm"
                         onClick={() => handleRemoveItem(item)}
+                        aria-label={`Remove ${item.name} from cart`}
                       >
-                        <i className="bi bi-trash"></i>
+                        <i className="bi bi-trash" aria-hidden="true"></i>
                       </button>
                     </div>
                   </div>
@@ -129,24 +132,24 @@ const CartPage = () => {
           <div className="col-lg-4">
             <div className="order-summary p-4 border rounded">
               <h5 className="fw-bold mb-4">Order Summary</h5>
-              
+
               <div className="summary-item d-flex justify-content-between mb-2">
                 <span>Subtotal</span>
                 <span>${subtotal.toFixed(2)}</span>
               </div>
-              
+
               <div className="summary-item d-flex justify-content-between mb-2 text-danger">
                 <span>Discount (-{discountPercentage}%)</span>
                 <span>-${discountAmount.toFixed(2)}</span>
               </div>
-              
+
               <div className="summary-item d-flex justify-content-between mb-3">
                 <span>Delivery Fee</span>
                 <span>${deliveryFee.toFixed(2)}</span>
               </div>
-              
+
               <hr />
-              
+
               <div className="summary-item d-flex justify-content-between mb-4">
                 <span className="fw-bold fs-5">Total</span>
                 <span className="fw-bold fs-5">${total.toFixed(2)}</span>
@@ -179,7 +182,7 @@ const CartPage = () => {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 };

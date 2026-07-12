@@ -48,7 +48,7 @@ const ProductDetails = () => {
 
   const safeRating = product ? Math.max(0, Math.min(5, Math.floor(product.rating || 0))) : 0;
   const discountPercent = product?.discount ? `${product.discount}% OFF` : null;
-  const itemPrice = product?.discount 
+  const itemPrice = product?.discount
     ? (product.price * (1 - product.discount / 100)).toFixed(2)
     : product?.price;
 
@@ -96,8 +96,8 @@ const ProductDetails = () => {
 
   return (
     <>
-      <SEO 
-        title={`${product.name} | SHOP.CO`} 
+      <SEO
+        title={`${product.name} | SHOP.CO`}
         description={product.description || "Step up your style game with this premium apparel. Carefully designed with comfort and durability in mind."}
         image={product.image}
         type="product"
@@ -160,11 +160,11 @@ const ProductDetails = () => {
                 <span className="fw-bold fs-3">${product.price}</span>
               )}
             </div>
-            
+
             <p className="text-muted mb-4">
               {product.description || "Step up your style game with this premium apparel. Carefully designed with comfort and durability in mind, it transitions effortlessly from day to night, making it a versatile staple in your wardrobe."}
             </p>
-            
+
             <hr />
 
             {/* Colors */}

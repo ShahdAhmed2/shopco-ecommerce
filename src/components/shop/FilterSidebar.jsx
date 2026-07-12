@@ -159,6 +159,7 @@ const FilterSidebar = () => {
               type="number"
               className="form-control"
               placeholder="Min"
+              aria-label="Minimum price"
               value={minPrice || ''}
               onChange={(e) => setMinPrice(Number(e.target.value))}
             />
@@ -170,6 +171,7 @@ const FilterSidebar = () => {
               type="number"
               className="form-control"
               placeholder="Max"
+              aria-label="Maximum price"
               value={maxPrice || ''}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
             />

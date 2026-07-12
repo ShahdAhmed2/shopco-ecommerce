@@ -36,27 +36,35 @@ const Header = () => {
 
   return (
     <header>
-     
+
       {showBanner && (
         <div className="top-banner text-white text-center py-2 position-relative">
           Sign up and get 20% off to your first order. <span className="fw-bold">Sign Up Now</span>
-        
           <button 
             className="close-btn position-absolute end-0 top-50 translate-middle-y me-3"
             onClick={() => setShowBanner(false)}
+            aria-label="Close promo banner"
           >
             ✕
           </button>
         </div>
       )}
 
-      <nav className="navbar navbar-expand-lg bg-white border-bottom py-3">
+      <nav className="navbar navbar-expand-lg bg-white border-bottom py-3" aria-label="Main Navigation">
         <div className="container d-flex align-items-center justify-content-between">
           {/* Logo */}
-          <Link className="navbar-brand fw-bold heading-integral" to="/" style={{ fontSize: '30px' }}>SHOP.CO</Link>
+          <Link className="navbar-brand fw-bold heading-integral" to="/" style={{ fontSize: '30px' }} aria-label="SHOP.CO Homepage">SHOP.CO</Link>
 
           {/* Toggler for mobile */}
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation menu"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
@@ -93,22 +101,28 @@ const Header = () => {
             {/* Search & Icons */}
             <div className="d-flex align-items-center gap-3 ms-auto flex-wrap" style={{ maxWidth: '500px' }}>
               <div className="position-relative" style={{ width: '320px' }}>
-                <i
-                  className="bi bi-search position-absolute"
+                <button
+                  type="button"
+                  className="position-absolute border-0 bg-transparent"
                   style={{
                     left: '12px',
                     top: '50%',
                     transform: 'translateY(-50%)',
                     color: '#888',
                     fontSize: '16px',
-                    cursor: 'pointer',
+                    padding: 0,
+                    zIndex: 5
                   }}
                   onClick={handleSearchSubmit}
-                ></i>
+                  aria-label="Search"
+                >
+                  <i className="bi bi-search"></i>
+                </button>
                 <input
                   type="text"
                   className="form-control rounded-pill ps-5 py-2"
                   placeholder="Search for products..."
+                  aria-label="Search for products"
                   style={{
                     fontSize: '14px',
                     background: 'rgba(240, 240, 240, 1)',
@@ -119,23 +133,37 @@ const Header = () => {
                   onKeyDown={handleKeyDown}
                 />
               </div>
-              <Link to="/wishlist" className="position-relative text-decoration-none me-1">
-                <i className="bi bi-heart fs-5 text-dark"></i>
+              <Link 
+                to="/wishlist" 
+                className="position-relative text-decoration-none me-1"
+                aria-label={`View wishlist, ${wishlistItems.length} items`}
+              >
+                <i className="bi bi-heart fs-5 text-dark" aria-hidden="true"></i>
                 {wishlistItems.length > 0 && (
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.7rem' }}>
                     {wishlistItems.length}
                   </span>
                 )}
               </Link>
-              <Link to="/cart" className="position-relative text-decoration-none">
-                <i className="bi bi-cart fs-5 text-dark"></i>
+              <Link 
+                to="/cart" 
+                className="position-relative text-decoration-none"
+                aria-label={`View shopping cart, ${getCartCount()} items`}
+              >
+                <i className="bi bi-cart fs-5 text-dark" aria-hidden="true"></i>
                 {getCartCount() > 0 && (
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.7rem' }}>
                     {getCartCount()}
                   </span>
                 )}
               </Link>
-              <i className="bi bi-person fs-5 text-dark"></i>
+              <button 
+                type="button" 
+                className="btn btn-link p-0 text-dark border-0" 
+                aria-label="Account profile"
+              >
+                <i className="bi bi-person fs-5" aria-hidden="true"></i>
+              </button>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import casualImg from '../../assets/image 11.png';
 import formalImg from '../../assets/image 13.png';
 import partyImg from '../../assets/image 12.png';
 import gymImg from '../../assets/image 14.png';
-import './BrowseByDressStyle.css'; 
+import './BrowseByDressStyle.css';
 
 const BrowseByDressStyle = () => {
   const styles = [
