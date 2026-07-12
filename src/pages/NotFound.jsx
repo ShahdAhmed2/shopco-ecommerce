@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import SEO from '../components/common/SEO';
 import './NotFound.css';
 
 /**
@@ -17,6 +18,10 @@ const NotFound = () => {
 
   return (
     <>
+      <SEO 
+        title="Page Not Found | SHOP.CO" 
+        description="The page you are looking for might have been removed, had its name changed, or is temporarily unavailable." 
+      />
       <Header />
       <main className="container d-flex flex-column align-items-center justify-content-center not-found-container text-center py-5">
         <div className="not-found-card p-5 bg-white border rounded-3">

@@ -15,10 +15,9 @@ const RelatedProducts = ({ currentProductId, section }) => {
   const { addToCart } = useCart();
   const { data: products = [], isLoading, isError, error } = useProducts(section);
 
-  const handleAddToCart = (product, e) => {
-    e.stopPropagation();
+  const handleAddToCart = React.useCallback((product) => {
     addToCart(product);
-  };
+  }, [addToCart]);
 
   // Exclude current product and slice to max 4 items
   const relatedList = products
@@ -60,8 +59,7 @@ const RelatedProducts = ({ currentProductId, section }) => {
         <div key={product.id} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
           <ProductCard
             product={product}
-            onClick={() => navigate(`/product/${product.id}`)}
-            onAddToCart={(e) => handleAddToCart(product, e)}
+            onAddToCart={handleAddToCart}
             className="w-100"
             style={{ maxWidth: '280px' }}
           />

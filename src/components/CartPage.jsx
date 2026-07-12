@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { Link } from 'react-router-dom';
+import SEO from './common/SEO';
 import './CartPage.css';
 
 const CartPage = () => {
@@ -34,6 +35,10 @@ const CartPage = () => {
   if (items.length === 0) {
     return (
       <div className="container py-5">
+        <SEO 
+          title="Shopping Cart | SHOP.CO" 
+          description="Your shopping cart is currently empty. Discover premium fashion, new arrivals and exclusive collections." 
+        />
         <div className="text-center">
           <h2 className="fw-bold mb-4">YOUR CART</h2>
           <p className="text-muted">Your cart is empty</p>
@@ -47,6 +52,10 @@ const CartPage = () => {
 
   return (
     <div className="cart-page">
+      <SEO 
+        title="Shopping Cart | SHOP.CO" 
+        description="Review items in your shopping bag, apply promo codes, and complete your purchase securely." 
+      />
       {/* Breadcrumbs */}
       <div className="container py-3">
         <nav aria-label="breadcrumb">

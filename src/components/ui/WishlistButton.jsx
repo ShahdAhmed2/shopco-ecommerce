@@ -15,7 +15,7 @@ const WishlistButton = ({ product, className = '' }) => {
 
   const isWishlisted = isInWishlist(product.id);
 
-  const handleToggle = (e) => {
+  const handleToggle = React.useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -24,7 +24,7 @@ const WishlistButton = ({ product, className = '' }) => {
     } else {
       addToWishlist(product);
     }
-  };
+  }, [isWishlisted, product.id, removeFromWishlist, addToWishlist]);
 
   return (
     <button
@@ -39,4 +39,4 @@ const WishlistButton = ({ product, className = '' }) => {
   );
 };
 
-export default WishlistButton;
+export default React.memo(WishlistButton);

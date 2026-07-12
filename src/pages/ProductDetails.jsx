@@ -7,6 +7,7 @@ import Footer from '../components/layout/Footer';
 import RelatedProducts from '../components/product/RelatedProducts';
 import WishlistButton from '../components/ui/WishlistButton';
 import ProductDetailsSkeleton from '../components/ui/ProductDetailsSkeleton';
+import SEO from '../components/common/SEO';
 import './ProductDetails.css';
 
 /**
@@ -21,13 +22,29 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState('Black');
 
-  const handleAddToCart = () => {
+  const handleAddToCart = React.useCallback(() => {
     if (!product) return;
     // Add item multiple times depending on quantity selection
     for (let i = 0; i < quantity; i++) {
       addToCart(product, selectedSize, selectedColor);
     }
-  };
+  }, [product, quantity, selectedSize, selectedColor, addToCart]);
+
+  const handleDecreaseQuantity = React.useCallback(() => {
+    setQuantity((q) => Math.max(1, q - 1));
+  }, []);
+
+  const handleIncreaseQuantity = React.useCallback(() => {
+    setQuantity((q) => q + 1);
+  }, []);
+
+  const handleColorSelect = React.useCallback((c) => {
+    setSelectedColor(c);
+  }, []);
+
+  const handleSizeSelect = React.useCallback((s) => {
+    setSelectedSize(s);
+  }, []);
 
   const safeRating = product ? Math.max(0, Math.min(5, Math.floor(product.rating || 0))) : 0;
   const discountPercent = product?.discount ? `${product.discount}% OFF` : null;
@@ -79,6 +96,12 @@ const ProductDetails = () => {
 
   return (
     <>
+      <SEO 
+        title={`${product.name} | SHOP.CO`} 
+        description={product.description || "Step up your style game with this premium apparel. Carefully designed with comfort and durability in mind."}
+        image={product.image}
+        type="product"
+      />
       <Header />
       <div className="container py-4 product-details-page">
         {/* Breadcrumbs */}
@@ -153,7 +176,7 @@ const ProductDetails = () => {
                     key={c}
                     type="button"
                     className={`btn btn-sm ${selectedColor === c ? 'btn-dark' : 'btn-outline-dark'} rounded-pill px-3`}
-                    onClick={() => setSelectedColor(c)}
+                    onClick={() => handleColorSelect(c)}
                   >
                     {c}
                   </button>
@@ -171,7 +194,7 @@ const ProductDetails = () => {
                     type="button"
                     className={`btn btn-sm ${selectedSize === s ? 'btn-dark' : 'btn-outline-dark'} rounded-circle`}
                     style={{ width: '36px', height: '36px', padding: 0 }}
-                    onClick={() => setSelectedSize(s)}
+                    onClick={() => handleSizeSelect(s)}
                   >
                     {s}
                   </button>
@@ -187,7 +210,7 @@ const ProductDetails = () => {
                 <button
                   type="button"
                   className="btn btn-light px-3"
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  onClick={handleDecreaseQuantity}
                 >
                   -
                 </button>
@@ -195,7 +218,7 @@ const ProductDetails = () => {
                 <button
                   type="button"
                   className="btn btn-light px-3"
-                  onClick={() => setQuantity((q) => q + 1)}
+                  onClick={handleIncreaseQuantity}
                 >
                   +
                 </button>

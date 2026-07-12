@@ -21,32 +21,32 @@ export const WishlistProvider = ({ children }) => {
     localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
   }, [wishlistItems]);
 
-  const addToWishlist = (product) => {
+  const isInWishlist = React.useCallback((productId) => {
+    return wishlistItems.some((item) => item.id === productId);
+  }, [wishlistItems]);
+
+  const addToWishlist = React.useCallback((product) => {
     if (!isInWishlist(product.id)) {
       setWishlistItems((prev) => [...prev, product]);
       toast.success('Added to wishlist', {
         toastId: `add-wishlist-${product.id}`
       });
     }
-  };
+  }, [isInWishlist]);
 
-  const removeFromWishlist = (productId) => {
+  const removeFromWishlist = React.useCallback((productId) => {
     setWishlistItems((prev) => prev.filter((item) => item.id !== productId));
     toast.info('Removed from wishlist', {
       toastId: `remove-wishlist-${productId}`
     });
-  };
+  }, []);
 
-  const isInWishlist = (productId) => {
-    return wishlistItems.some((item) => item.id === productId);
-  };
-
-  const value = {
+  const value = React.useMemo(() => ({
     wishlistItems,
     addToWishlist,
     removeFromWishlist,
     isInWishlist,
-  };
+  }), [wishlistItems, addToWishlist, removeFromWishlist, isInWishlist]);
 
   return (
     <WishlistContext.Provider value={value}>

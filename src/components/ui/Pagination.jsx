@@ -11,7 +11,9 @@ import './Pagination.css';
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   if (totalPages <= 1) return null;
 
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pageNumbers = React.useMemo(() => {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }, [totalPages]);
 
   return (
     <nav className="d-flex justify-content-between align-items-center mt-4 pt-3 border-top pagination-container">
@@ -52,4 +54,4 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   );
 };
 
-export default Pagination;
+export default React.memo(Pagination);

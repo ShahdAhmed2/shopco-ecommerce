@@ -58,10 +58,9 @@ const ProductSection = ({
     setShowModal(false);
   };
 
-  const handleAddToCart = (product, e) => {
-    e.stopPropagation();
+  const handleAddToCart = React.useCallback((product) => {
     addToCart(product, selectedSize, selectedColor);
-  };
+  }, [addToCart, selectedSize, selectedColor]);
 
   const displayed = showAll ? products : products.slice(0, itemsToShow);
 
@@ -96,13 +95,12 @@ const ProductSection = ({
               <ProductCard
                 key={product.id}
                 product={product}
-                onClick={() => navigate(`/product/${product.id}`)}
                 style={{
                   flex: isMobile ? '0 0 auto' : '0 0 auto',
                   scrollSnapAlign: isMobile ? 'start' : 'unset',
                   animationDelay: `${index * 0.1}s`,
                 }}
-                onAddToCart={(e) => handleAddToCart(product, e)}
+                onAddToCart={handleAddToCart}
               />
             ))
           )}

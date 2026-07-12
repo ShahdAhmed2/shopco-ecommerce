@@ -92,7 +92,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(state));
   }, [state]);
 
-  const addToCart = (product, size = 'M', color = 'Black') => {
+  const addToCart = React.useCallback((product, size = 'M', color = 'Black') => {
     dispatch({
       type: 'ADD_TO_CART',
       payload: { ...product, size, color }
@@ -100,9 +100,9 @@ export const CartProvider = ({ children }) => {
     toast.success('Product added to cart', {
       toastId: `add-to-cart-${product.id}-${size}-${color}`
     });
-  };
+  }, []);
 
-  const removeFromCart = (product, size, color) => {
+  const removeFromCart = React.useCallback((product, size, color) => {
     dispatch({
       type: 'REMOVE_FROM_CART',
       payload: { id: product.id, size, color }
@@ -110,36 +110,36 @@ export const CartProvider = ({ children }) => {
     toast.info('Product removed from cart', {
       toastId: `remove-from-cart-${product.id}-${size}-${color}`
     });
-  };
+  }, []);
 
-  const updateQuantity = (product, size, color, quantity) => {
+  const updateQuantity = React.useCallback((product, size, color, quantity) => {
     dispatch({
       type: 'UPDATE_QUANTITY',
       payload: { id: product.id, size, color, quantity }
     });
-  };
+  }, []);
 
-  const clearCart = () => {
+  const clearCart = React.useCallback(() => {
     dispatch({ type: 'CLEAR_CART' });
     toast.warn('Cart cleared', {
       toastId: 'cart-cleared'
     });
-  };
+  }, []);
 
-  const getCartTotal = () => {
+  const getCartTotal = React.useCallback(() => {
     return state.items.reduce((total, item) => {
       const itemPrice = item.discount 
         ? item.price * (1 - item.discount / 100)
         : item.price;
       return total + (itemPrice * item.quantity);
     }, 0);
-  };
+  }, [state.items]);
 
-  const getCartCount = () => {
+  const getCartCount = React.useCallback(() => {
     return state.items.reduce((count, item) => count + item.quantity, 0);
-  };
+  }, [state.items]);
 
-  const applyPromoCode = (code) => {
+  const applyPromoCode = React.useCallback((code) => {
     if (code.toLowerCase() === 'save20') {
       toast.success('Promo code applied successfully!', {
         toastId: 'promo-success'
@@ -151,9 +151,9 @@ export const CartProvider = ({ children }) => {
       });
       return false;
     }
-  };
+  }, []);
 
-  const value = {
+  const value = React.useMemo(() => ({
     items: state.items,
     addToCart,
     removeFromCart,
@@ -162,7 +162,7 @@ export const CartProvider = ({ children }) => {
     getCartTotal,
     getCartCount,
     applyPromoCode
-  };
+  }), [state.items, addToCart, removeFromCart, updateQuantity, clearCart, getCartTotal, getCartCount, applyPromoCode]);
 
   return (
     <CartContext.Provider value={value}>

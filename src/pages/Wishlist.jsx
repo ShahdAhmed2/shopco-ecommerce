@@ -5,6 +5,7 @@ import { useCart } from '../contexts/CartContext';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import ProductCard from '../components/product/ProductCard';
+import SEO from '../components/common/SEO';
 import './Wishlist.css';
 
 const Wishlist = () => {
@@ -20,6 +21,10 @@ const Wishlist = () => {
 
   return (
     <>
+      <SEO 
+        title="Wishlist | SHOP.CO" 
+        description="Your curated list of favorite products. Save items and add them to cart directly." 
+      />
       <Header />
       <div className="container py-4 wishlist-page-container">
         {/* Breadcrumbs */}

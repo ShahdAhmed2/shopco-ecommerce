@@ -141,10 +141,9 @@ const ShopGrid = ({ searchQuery }) => {
     setShowModal(false);
   };
 
-  const handleAddToCart = (product, e) => {
-    e.stopPropagation();
+  const handleAddToCart = React.useCallback((product) => {
     addToCart(product, selectedSize, selectedColor);
-  };
+  }, [addToCart, selectedSize, selectedColor]);
 
   if (isLoading) {
     return (
@@ -199,8 +198,7 @@ const ShopGrid = ({ searchQuery }) => {
           <ProductCard
             key={product.id}
             product={product}
-            onClick={() => navigate(`/product/${product.id}`)}
-            onAddToCart={(e) => handleAddToCart(product, e)}
+            onAddToCart={handleAddToCart}
           />
         ))}
       </div>

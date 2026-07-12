@@ -4,6 +4,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import SEO from './common/SEO';
 import './AdminDashboard.css';
 
 const API_URL = 'https://6888080aadf0e59551b8d6e4.mockapi.io/api/v1/products';
@@ -131,6 +132,10 @@ function AdminDashboard() {
 
   return (
     <div className="container py-5" style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <SEO 
+        title="Admin Dashboard | SHOP.CO" 
+        description="Manage product listings and catalog items in the SHOP.CO administration dashboard." 
+      />
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold" style={{ color: '#121212' }}>Admin Dashboard</h2>
         <Link to="/" className="btn btn-outline-dark">← Home</Link>

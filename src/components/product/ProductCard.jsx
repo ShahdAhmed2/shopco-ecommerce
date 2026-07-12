@@ -26,12 +26,12 @@ const ProductCard = ({
   const safeRating = Math.max(0, Math.min(5, Math.floor(product.rating || 0)));
   const discountPercent = product.discount ? `${product.discount}% OFF` : null;
 
-  const handleCartClick = (e) => {
+  const handleCartClick = React.useCallback((e) => {
     e.stopPropagation();
     if (onAddToCart) {
-      onAddToCart(e);
+      onAddToCart(product);
     }
-  };
+  }, [onAddToCart, product]);
 
   const handleCardClick = (e) => {
     if (onClick) {
@@ -101,4 +101,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);
