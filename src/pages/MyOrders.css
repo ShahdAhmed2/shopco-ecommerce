@@ -1,0 +1,23 @@
+.orders-page {
+  min-height: 80vh;
+}
+
+.order-card {
+  border: 1px solid #eef2f3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+@media (max-width: 768px) {
+  .order-card .border-start {
+    border-start: none !important;
+    border-top: 1px solid #dee2e6 !important;
+    padding-left: 0.75rem !important;
+    padding-top: 1.5rem !important;
+    margin-top: 1rem;
+  }
+}

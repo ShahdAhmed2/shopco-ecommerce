@@ -175,6 +175,11 @@ const Header = () => {
                     <li className="dropdown-header text-dark fw-bold border-bottom pb-2 mb-1">
                       Hi, {user?.name}
                     </li>
+                    <li>
+                      <Link className="dropdown-item py-2 fw-medium" to="/my-orders">
+                        <i className="bi bi-bag-check me-2"></i> My Orders
+                      </Link>
+                    </li>
                     {user?.role === 'admin' && (
                       <li>
                         <Link className="dropdown-item py-2 fw-medium" to="/admin">

@@ -1,0 +1,54 @@
+.checkout-page {
+  min-height: 80vh;
+}
+
+.checkout-page input {
+  font-size: 14px;
+  border: 1px solid #e0e0e0;
+  background-color: #fbfbfb;
+}
+
+.checkout-page input:focus {
+  border-color: #121212;
+  box-shadow: none;
+  background-color: #fff;
+}
+
+.checkout-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.checkout-items::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.checkout-items::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.checkout-items::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+.checkout-page .card {
+  border: 1px solid #f0f0f0;
+}
+
+.checkout-page .btn-dark {
+  background-color: #000;
+  border-color: #000;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.checkout-page .btn-dark:hover {
+  background-color: #222;
+  border-color: #222;
+}
+
+.checkout-page .btn-dark:active {
+  transform: scale(0.98);
+}
