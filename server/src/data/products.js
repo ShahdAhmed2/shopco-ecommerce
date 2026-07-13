@@ -1,0 +1,156 @@
+const products = [
+  {
+    name: "Tasty Bronze Hat",
+    price: 150.00,
+    oldPrice: 441.95,
+    image: "https://i.postimg.cc/Z561wsfM/1746094676006-843428061.png",
+    rating: 3.6,
+    section: "new-arrivals",
+    discount: 20,
+    category: "Shirts",
+    dressStyle: "Casual",
+    colors: ["Black", "Blue"],
+    sizes: ["S", "M", "L"],
+    stock: 50
+  },
+  {
+    name: "Bespoke Steel Gloves",
+    price: 519.25,
+    oldPrice: 812.95,
+    image: "https://i.postimg.cc/WztBS2KG/1746094062451-469788725.png",
+    rating: 2.2,
+    section: "new-arrivals",
+    discount: 10,
+    category: "Shirts",
+    dressStyle: "Gym",
+    colors: ["Black", "White"],
+    sizes: ["M", "L"],
+    stock: 30
+  },
+  {
+    name: "Unbranded Steel Salad",
+    price: 108.05,
+    oldPrice: 508.09,
+    image: "https://i.postimg.cc/gjvvChfm/Frame-7.png",
+    rating: 3.1,
+    section: "top-selling",
+    category: "Shorts",
+    dressStyle: "Casual",
+    colors: ["Green", "White"],
+    sizes: ["M", "L", "XL"],
+    stock: 25
+  },
+  {
+    name: "Handcrafted Aluminum Towels",
+    price: 699.20,
+    oldPrice: 184.09,
+    image: "https://i.postimg.cc/qR6cGSwt/Frame-5.png",
+    rating: 3,
+    section: "new-arrivals",
+    category: "Hoodies",
+    dressStyle: "Casual",
+    colors: ["Blue", "Pink"],
+    sizes: ["M", "L"],
+    stock: 15
+  },
+  {
+    name: "Fresh Rubber",
+    price: 150.00,
+    oldPrice: 86.33,
+    image: "https://i.postimg.cc/7YJv2ZSD/l-20241-s40987z8-lcp-u.webp",
+    rating: 4.2,
+    section: "top-selling",
+    discount: 10,
+    category: "Shorts",
+    dressStyle: "Gym",
+    colors: ["Black", "White"],
+    sizes: ["S", "M", "L"],
+    stock: 40
+  },
+  {
+    name: "Tasty Bronze Hat",
+    price: 150.00,
+    oldPrice: 368.70,
+    image: "https://i.postimg.cc/m2YwJxsC/Frame-38.png",
+    rating: 5,
+    section: "top-selling",
+    discount: 10,
+    category: "Shorts",
+    dressStyle: "Casual",
+    colors: ["Black", "White"],
+    sizes: ["S", "M"],
+    stock: 80
+  },
+  {
+    name: "Incredible Rubber Salad",
+    price: 320.00,
+    oldPrice: 346.19,
+    image: "https://i.postimg.cc/kX3sTJk7/Frame-32.png",
+    rating: 4,
+    section: "top-selling",
+    discount: 5,
+    category: "Shorts",
+    dressStyle: "Gym",
+    colors: ["Black", "White"],
+    sizes: ["S", "M", "L"],
+    stock: 10
+  },
+  {
+    name: "Unbranded Cotton Towels",
+    price: 625.00,
+    oldPrice: 282.65,
+    image: "https://i.postimg.cc/kX3sTJk7/Frame-32.png",
+    rating: 5,
+    section: "new-arrivals",
+    discount: 20,
+    category: "Hoodies",
+    dressStyle: "Casual",
+    colors: ["White", "Blue"],
+    sizes: ["M", "L", "XL"],
+    stock: 65
+  },
+  {
+    name: "Striped T-Shirt",
+    price: 254.00,
+    oldPrice: 277.59,
+    image: "https://i.postimg.cc/9Mx3G4xX/1746094065834-983938474.png",
+    rating: 60, // Invalid - needs normalization to 3.0
+    section: "new-arrivals",
+    discount: 10,
+    category: "T-Shirts",
+    dressStyle: "Casual",
+    colors: ["Black", "White", "Red"],
+    sizes: ["S", "M", "L", "XL"],
+    stock: 120
+  },
+  {
+    name: "Incredible Rubber Salad",
+    price: 451.00,
+    oldPrice: 166.75,
+    image: "https://www.olderbest.com/cdn/shop/files/1_7c85056b-cc16-40e4-8495-4150befe9676.jpg?v=1711184243",
+    rating: 81, // Invalid - needs normalization to 4.05
+    section: "new-arrivals",
+    discount: 10,
+    category: "Jeans",
+    dressStyle: "Party",
+    colors: ["Blue", "Black"],
+    sizes: ["M", "L", "XL"],
+    stock: 45
+  },
+  {
+    name: "Unbranded Cotton",
+    price: 604.00,
+    oldPrice: 826.05,
+    image: "https://i.postimg.cc/tCKKtGz6/1746094848443-455096445.png",
+    rating: 85, // Invalid - needs normalization to 4.25
+    section: "top-selling",
+    discount: 5,
+    category: "Shirts",
+    dressStyle: "Formal",
+    colors: ["White", "Blue"],
+    sizes: ["M", "L", "XL"],
+    stock: 90
+  }
+];
+
+export default products;
