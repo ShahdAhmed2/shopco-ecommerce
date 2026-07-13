@@ -40,3 +40,14 @@ export const protect = asyncHandler(async (req, res, next) => {
     throw new Error('Not authorized, no token provided');
   }
 });
+
+/**
+ * Middleware to restrict access to administrators only.
+ */
+export const admin = (req, res, next) => {
+  if (!req.user || req.user.role !== 'admin') {
+    res.status(403);
+    throw new Error('Not authorized as an admin');
+  }
+  next();
+};
