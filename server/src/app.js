@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import morgan from 'morgan';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import productRoutes from './routes/productRoutes.js';
 
 const app = express();
 
@@ -30,13 +31,15 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health Check API
+// Routes
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'SHOP.CO API is running'
   });
 });
+
+app.use('/api/products', productRoutes);
 
 // Centralized error handling
 app.use(notFound);
