@@ -1,58 +1,149 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
+import { wishlistService } from '../services/wishlistService';
+import { useAuth } from './AuthContext';
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlistItems, setWishlistItems] = useState(() => {
-    const savedWishlist = localStorage.getItem('wishlist');
-    if (savedWishlist) {
-      try {
-        return JSON.parse(savedWishlist);
-      } catch (error) {
-        console.error('Error parsing wishlist from localStorage:', error);
-      }
+  const { isAuthenticated } = useAuth();
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Map backend wishlist item schema to frontend property key formats
+  const mapBackendWishlistToFrontend = (backendWishlist) => {
+    if (!backendWishlist || !backendWishlist.items) return [];
+    return backendWishlist.items.map((item) => {
+      const product = item.product || {};
+      return {
+        id: product._id || product.id,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        discount: product.discount,
+        rating: product.rating,
+        addedAt: item.addedAt,
+      };
+    });
+  };
+
+  // Fetch wishlist on mount or when auth state changes
+  const fetchWishlist = useCallback(async () => {
+    if (!isAuthenticated) {
+      setWishlistItems([]);
+      return;
     }
-    return [];
-  });
+    try {
+      setLoading(true);
+      const wishlistData = await wishlistService.getWishlist();
+      setWishlistItems(mapBackendWishlistToFrontend(wishlistData));
+    } catch (error) {
+      console.error('Failed to retrieve wishlist details:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
 
-  // Save wishlist to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
-  }, [wishlistItems]);
+    fetchWishlist();
+  }, [fetchWishlist]);
 
-  const isInWishlist = React.useCallback((productId) => {
+  // Check if a product is in the wishlist
+  const isInWishlist = useCallback((productId) => {
     return wishlistItems.some((item) => item.id === productId);
   }, [wishlistItems]);
 
-  const addToWishlist = React.useCallback((product) => {
-    if (!isInWishlist(product.id)) {
-      setWishlistItems((prev) => [...prev, product]);
-      toast.success('Added to wishlist', {
-        toastId: `add-wishlist-${product.id}`
-      });
-    }
+  const isWishlisted = useCallback((productId) => {
+    return isInWishlist(productId);
   }, [isInWishlist]);
 
-  const removeFromWishlist = React.useCallback((productId) => {
-    setWishlistItems((prev) => prev.filter((item) => item.id !== productId));
-    toast.info('Removed from wishlist', {
-      toastId: `remove-wishlist-${productId}`
-    });
-  }, []);
+  // Add product to wishlist
+  const addToWishlist = useCallback(async (product) => {
+    if (!isAuthenticated) {
+      toast.error('Please sign in to manage your wishlist.', { toastId: 'wishlist-auth-required' });
+      // Redirect to login page
+      window.location.href = '/login';
+      return;
+    }
 
-  const value = React.useMemo(() => ({
-    wishlistItems,
-    addToWishlist,
-    removeFromWishlist,
-    isInWishlist,
-  }), [wishlistItems, addToWishlist, removeFromWishlist, isInWishlist]);
+    try {
+      setLoading(true);
+      const wishlistData = await wishlistService.addToWishlist(product.id || product._id);
+      setWishlistItems(mapBackendWishlistToFrontend(wishlistData));
+      toast.success('Added to wishlist', {
+        toastId: `add-wishlist-${product.id || product._id}`,
+      });
+    } catch (error) {
+      console.error('Failed to add product to wishlist:', error);
+      toast.error(error?.response?.data?.message || error?.message || 'Failed to add item');
+    } finally {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
 
-  return (
-    <WishlistContext.Provider value={value}>
-      {children}
-    </WishlistContext.Provider>
+  // Remove product from wishlist
+  const removeFromWishlist = useCallback(async (productId) => {
+    if (!isAuthenticated) return;
+    try {
+      setLoading(true);
+      const wishlistData = await wishlistService.removeFromWishlist(productId);
+      setWishlistItems(mapBackendWishlistToFrontend(wishlistData));
+      toast.info('Removed from wishlist', {
+        toastId: `remove-wishlist-${productId}`,
+      });
+    } catch (error) {
+      console.error('Failed to remove product from wishlist:', error);
+      toast.error(error?.response?.data?.message || error?.message || 'Failed to remove item');
+    } finally {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
+
+  // Clear entire wishlist
+  const clearWishlist = useCallback(async () => {
+    if (!isAuthenticated) {
+      setWishlistItems([]);
+      return;
+    }
+    try {
+      setLoading(true);
+      const wishlistData = await wishlistService.clearWishlist();
+      setWishlistItems(mapBackendWishlistToFrontend(wishlistData));
+      toast.warn('Wishlist cleared', {
+        toastId: 'wishlist-cleared',
+      });
+    } catch (error) {
+      console.error('Failed to clear wishlist:', error);
+      toast.error(error?.response?.data?.message || error?.message || 'Failed to clear wishlist');
+    } finally {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
+
+  const value = useMemo(
+    () => ({
+      wishlistItems,
+      loading,
+      addToWishlist,
+      removeFromWishlist,
+      clearWishlist,
+      isInWishlist,
+      isWishlisted,
+      fetchWishlist,
+    }),
+    [
+      wishlistItems,
+      loading,
+      addToWishlist,
+      removeFromWishlist,
+      clearWishlist,
+      isInWishlist,
+      isWishlisted,
+      fetchWishlist,
+    ]
   );
+
+  return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;
 };
 
 export const useWishlist = () => {
