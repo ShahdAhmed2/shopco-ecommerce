@@ -24,10 +24,7 @@ const ProductDetails = () => {
 
   const handleAddToCart = React.useCallback(() => {
     if (!product) return;
-    // Add item multiple times depending on quantity selection
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product, selectedSize, selectedColor);
-    }
+    addToCart(product, selectedSize, selectedColor, quantity);
   }, [product, quantity, selectedSize, selectedColor, addToCart]);
 
   const handleDecreaseQuantity = React.useCallback(() => {

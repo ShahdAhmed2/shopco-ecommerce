@@ -5,7 +5,7 @@ import SEO from './common/SEO';
 import './CartPage.css';
 
 const CartPage = () => {
-  const { items, removeFromCart, updateQuantity, getCartTotal, applyPromoCode } = useCart();
+  const { items, removeFromCart, updateQuantity, getCartTotal, applyPromoCode, clearCart } = useCart();
   const [promoCode, setPromoCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState(0);
 
@@ -29,7 +29,7 @@ const CartPage = () => {
   };
 
   const handleRemoveItem = (item) => {
-    removeFromCart(item, item.size, item.color);
+    removeFromCart(item);
   };
 
   if (items.length === 0) {
@@ -69,7 +69,12 @@ const CartPage = () => {
       </div>
 
       <div className="container py-4">
-        <h1 className="fw-bold text-center mb-5">YOUR CART</h1>
+        <div className="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+          <h1 className="fw-bold mb-0">YOUR CART</h1>
+          <button className="btn btn-outline-danger btn-sm rounded-pill px-4 py-2 fw-semibold" onClick={clearCart}>
+            <i className="bi bi-trash-fill me-2"></i>Clear Bag
+          </button>
+        </div>
 
         <div className="row">
           {/* Cart Items */}
