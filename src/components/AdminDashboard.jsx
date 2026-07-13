@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { productService } from '../services/productService';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import SEO from './common/SEO';
 import './AdminDashboard.css';
-
-const API_URL = 'https://6888080aadf0e59551b8d6e4.mockapi.io/api/v1/products';
 
 const emptyProduct = {
   name: '',
@@ -27,14 +25,11 @@ function AdminDashboard() {
 
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products'],
-    queryFn: async () => {
-      const res = await axios.get(API_URL);
-      return res.data;
-    },
+    queryFn: () => productService.getProducts(),
   });
 
   const addProduct = useMutation({
-    mutationFn: (newProduct) => axios.post(API_URL, newProduct),
+    mutationFn: (newProduct) => productService.createProduct(newProduct),
     onSuccess: () => {
       toast.success('Product created successfully!', { toastId: 'product-create-success' });
       queryClient.invalidateQueries(['products']);
@@ -43,13 +38,13 @@ function AdminDashboard() {
     },
     onError: (error) => {
       console.error('Add product error:', error);
-      toast.error(error?.message || 'Failed to add product.', { toastId: 'product-create-error' });
+      toast.error(error?.response?.data?.message || error?.message || 'Failed to add product.', { toastId: 'product-create-error' });
     },
   });
 
   const editProduct = useMutation({
     mutationFn: (updatedProduct) =>
-      axios.put(`${API_URL}/${updatedProduct.id}`, updatedProduct),
+      productService.updateProduct(updatedProduct.id, updatedProduct),
     onSuccess: () => {
       toast.success('Product updated successfully!', { toastId: 'product-update-success' });
       queryClient.invalidateQueries(['products']);
@@ -58,19 +53,19 @@ function AdminDashboard() {
     },
     onError: (error) => {
       console.error('Edit product error:', error);
-      toast.error(error?.message || 'Failed to update product.', { toastId: 'product-update-error' });
+      toast.error(error?.response?.data?.message || error?.message || 'Failed to update product.', { toastId: 'product-update-error' });
     },
   });
 
   const deleteProduct = useMutation({
-    mutationFn: (id) => axios.delete(`${API_URL}/${id}`),
+    mutationFn: (id) => productService.deleteProduct(id),
     onSuccess: () => {
       toast.success('Product deleted successfully!', { toastId: 'product-delete-success' });
       queryClient.invalidateQueries(['products']);
     },
     onError: (error) => {
       console.error('Delete product error:', error);
-      toast.error(error?.message || 'Failed to delete product.', { toastId: 'product-delete-error' });
+      toast.error(error?.response?.data?.message || error?.message || 'Failed to delete product.', { toastId: 'product-delete-error' });
     },
   });
 
@@ -184,7 +179,7 @@ function AdminDashboard() {
                   </td>
                   <td>
                     <span className="badge bg-secondary text-capitalize">
-                      {product.section.replace('-', ' ')}
+                      {(product.section || '').replace('-', ' ')}
                     </span>
                   </td>
                   <td>

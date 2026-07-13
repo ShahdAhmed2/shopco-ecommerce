@@ -16,7 +16,6 @@ import './ShopGrid.css';
 const ShopGrid = ({ searchQuery }) => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
-  const { data: products = [], isLoading, isError, error } = useProducts();
   const {
     category,
     dressStyle,
@@ -27,6 +26,20 @@ const ShopGrid = ({ searchQuery }) => {
     rating,
     sort,
   } = useFilters();
+
+  const filters = useMemo(() => ({
+    search: searchQuery || undefined,
+    category: category || undefined,
+    dressStyle: dressStyle || undefined,
+    color: color || undefined,
+    size: size || undefined,
+    minPrice: minPrice || undefined,
+    maxPrice: maxPrice || undefined,
+    rating: rating || undefined,
+    sort: sort || undefined,
+  }), [searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
+
+  const { data: products = [], isLoading, isError, error } = useProducts(filters);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);

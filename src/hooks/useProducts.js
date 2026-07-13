@@ -5,14 +5,14 @@ import { productService } from '../services/productService';
  * Custom hook to fetch products using React Query caching
  * @param {string} [section] - Optional section ('new-arrivals' | 'top-selling') to filter by
  */
-export const useProducts = (section) => {
+export const useProducts = (filters) => {
   return useQuery({
-    queryKey: section ? ['products', section] : ['products'],
+    queryKey: filters ? ['products', filters] : ['products'],
     queryFn: () => {
-      if (section) {
-        return productService.getProductsBySection(section);
+      if (typeof filters === 'string') {
+        return productService.getProductsBySection(filters);
       }
-      return productService.getAllProducts();
+      return productService.getProducts(filters);
     },
   });
 };
