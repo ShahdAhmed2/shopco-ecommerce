@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { CartProvider } from './contexts/CartContext'
 import { WishlistProvider } from './contexts/WishlistContext'
+import { AuthProvider } from './contexts/AuthContext'
 import ErrorBoundary from './components/common/ErrorBoundary'
 import { HelmetProvider } from 'react-helmet-async'
 import { ToastContainer } from 'react-toastify'
@@ -21,16 +22,18 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <CartProvider>
-          <WishlistProvider>
-            <BrowserRouter>
-              <ErrorBoundary>
-                <App />
-              </ErrorBoundary>
-            </BrowserRouter>
-            <ToastContainer position="top-right" autoClose={3000} pauseOnHover />
-          </WishlistProvider>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <BrowserRouter>
+                <ErrorBoundary>
+                  <App />
+                </ErrorBoundary>
+              </BrowserRouter>
+              <ToastContainer position="top-right" autoClose={3000} pauseOnHover />
+            </WishlistProvider>
+          </CartProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </HelmetProvider>
   </StrictMode>

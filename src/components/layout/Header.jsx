@@ -3,12 +3,14 @@ import './Header.css';
 import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useWishlist } from '../../hooks/useWishlist';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 const Header = () => {
   const [showBanner, setShowBanner] = useState(true);
   const { getCartCount } = useCart();
   const { wishlistItems } = useWishlist();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -157,13 +159,52 @@ const Header = () => {
                   </span>
                 )}
               </Link>
-              <button 
-                type="button" 
-                className="btn btn-link p-0 text-dark border-0" 
-                aria-label="Account profile"
-              >
-                <i className="bi bi-person fs-5" aria-hidden="true"></i>
-              </button>
+              {isAuthenticated ? (
+                <div className="dropdown">
+                  <button
+                    className="btn btn-link p-0 text-dark border-0 dropdown-toggle no-caret"
+                    type="button"
+                    id="profileDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    aria-label={`Account profile, logged in as ${user?.name}`}
+                  >
+                    <i className="bi bi-person fs-5" aria-hidden="true"></i>
+                  </button>
+                  <ul className="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileDropdown">
+                    <li className="dropdown-header text-dark fw-bold border-bottom pb-2 mb-1">
+                      Hi, {user?.name}
+                    </li>
+                    {user?.role === 'admin' && (
+                      <li>
+                        <Link className="dropdown-item py-2 fw-medium" to="/admin">
+                          <i className="bi bi-speedometer2 me-2"></i> Admin Dashboard
+                        </Link>
+                      </li>
+                    )}
+                    <li>
+                      <button
+                        type="button"
+                        className="dropdown-item py-2 fw-medium text-danger"
+                        onClick={() => {
+                          logout();
+                          navigate('/');
+                        }}
+                      >
+                        <i className="bi bi-box-arrow-right me-2"></i> Sign Out
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-dark p-0"
+                  aria-label="Sign in"
+                >
+                  <i className="bi bi-person fs-5" aria-hidden="true"></i>
+                </Link>
+              )}
             </div>
           </div>
         </div>
