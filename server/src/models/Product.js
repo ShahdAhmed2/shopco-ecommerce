@@ -1,5 +1,33 @@
 import mongoose from 'mongoose';
 
+const reviewSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Review must belong to a user'],
+    },
+    name: {
+      type: String,
+      required: [true, 'Reviewer name is required'],
+    },
+    rating: {
+      type: Number,
+      required: [true, 'Review rating is required'],
+      min: [1, 'Rating must be at least 1'],
+      max: [5, 'Rating cannot exceed 5'],
+    },
+    comment: {
+      type: String,
+      required: [true, 'Review comment is required'],
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  }
+);
+
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -54,6 +82,11 @@ const productSchema = new mongoose.Schema(
       min: [0, 'Rating cannot be below 0'],
       max: [5, 'Rating cannot be above 5'],
     },
+    numReviews: {
+      type: Number,
+      default: 0,
+    },
+    reviews: [reviewSchema],
     colors: {
       type: [String],
       default: [],
