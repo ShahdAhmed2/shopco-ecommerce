@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import { useProduct } from '../hooks/useProduct';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
+import { reviewService } from '../services/reviewService';
+import { toast } from 'react-toastify';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import RelatedProducts from '../components/product/RelatedProducts';
@@ -17,6 +21,82 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
   const { data: product, isLoading, isError, error } = useProduct(id);
+
+  const queryClient = useQueryClient();
+  const { user, isAuthenticated } = useAuth();
+  
+  const [reviews, setReviews] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [ratingInput, setRatingInput] = useState(5);
+  const [commentInput, setCommentInput] = useState('');
+  const [submittingReview, setSubmittingReview] = useState(false);
+
+  const fetchReviews = useCallback(async () => {
+    if (!id) return;
+    try {
+      setReviewsLoading(true);
+      const data = await reviewService.getProductReviews(id);
+      setReviews(data);
+    } catch (err) {
+      console.error('Failed to load reviews:', err);
+    } finally {
+      setReviewsLoading(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
+
+  // Pre-fill form if current user already submitted a review
+  useEffect(() => {
+    if (isAuthenticated && user && reviews.length > 0) {
+      const myReview = reviews.find(
+        (r) => r.user?._id === user.id || r.user === user.id
+      );
+      if (myReview) {
+        setRatingInput(myReview.rating);
+        setCommentInput(myReview.comment);
+      } else {
+        setRatingInput(5);
+        setCommentInput('');
+      }
+    } else {
+      setRatingInput(5);
+      setCommentInput('');
+    }
+  }, [reviews, user, isAuthenticated]);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!id) return;
+    try {
+      setSubmittingReview(true);
+      await reviewService.createOrUpdateReview(id, {
+        rating: ratingInput,
+        comment: commentInput,
+      });
+      toast.success('Review submitted successfully!');
+      queryClient.invalidateQueries({ queryKey: ['product', id] });
+      fetchReviews();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || err?.message || 'Failed to submit review');
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    if (!id || !window.confirm('Are you sure you want to delete this review?')) return;
+    try {
+      await reviewService.deleteReview(id, reviewId);
+      toast.success('Review deleted successfully');
+      queryClient.invalidateQueries({ queryKey: ['product', id] });
+      fetchReviews();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || err?.message || 'Failed to delete review');
+    }
+  };
 
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('M');
@@ -140,7 +220,8 @@ const ProductDetails = () => {
               {'★'.repeat(safeRating)}
               {'☆'.repeat(5 - safeRating)}
               <span className="text-dark small ms-2">
-                {product.rating ? `${product.rating}/5` : ''}
+                {product.rating ? `${Number(product.rating).toFixed(1)}/5` : '0/5'}
+                <span className="text-muted ms-1">({product.numReviews || 0} reviews)</span>
               </span>
             </div>
 
@@ -228,6 +309,134 @@ const ProductDetails = () => {
                 Add to Cart
               </button>
               <WishlistButton product={product} className="wishlist-detail-btn" />
+            </div>
+          </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="mt-5 pt-4 border-top">
+          <h4 className="fw-bold mb-4 heading-integral">Customer Reviews ({reviews.length})</h4>
+          
+          <div className="row g-4">
+            {/* Reviews List */}
+            <div className="col-12 col-lg-7">
+              {reviewsLoading ? (
+                <div className="d-flex justify-content-center py-5">
+                  <div className="spinner-border text-dark" role="status">
+                    <span className="visually-hidden">Loading reviews...</span>
+                  </div>
+                </div>
+              ) : reviews.length === 0 ? (
+                <div className="text-center py-5 text-muted bg-light rounded-3">
+                  <i className="bi bi-chat-left-text fs-1 mb-2 d-block"></i>
+                  <p className="mb-0">No reviews yet. Be the first to share your thoughts!</p>
+                </div>
+              ) : (
+                <div className="d-flex flex-column gap-3">
+                  {reviews.map((rev) => {
+                    const reviewerId = rev.user?._id || rev.user;
+                    const canDelete = isAuthenticated && (user?.id === reviewerId || user?.role === 'admin');
+                    
+                    return (
+                      <div key={rev._id} className="card p-3 border border-light-subtle rounded-3 shadow-sm">
+                        <div className="d-flex justify-content-between align-items-start">
+                          <div>
+                            <h6 className="fw-bold mb-1">{rev.name}</h6>
+                            <div className="text-warning mb-2 small">
+                              {'★'.repeat(rev.rating)}
+                              {'☆'.repeat(5 - rev.rating)}
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2">
+                            <span className="text-muted small">
+                              {new Date(rev.createdAt).toLocaleDateString(undefined, {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              })}
+                            </span>
+                            {canDelete && (
+                              <button
+                                className="btn btn-outline-danger btn-sm border-0"
+                                onClick={() => handleDeleteReview(rev._id)}
+                                aria-label="Delete review"
+                              >
+                                <i className="bi bi-trash"></i>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        <p className="mb-0 text-muted small mt-1">{rev.comment}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Write a Review Form */}
+            <div className="col-12 col-lg-5">
+              <div className="card p-4 border rounded-3 bg-light">
+                <h5 className="fw-bold mb-3">
+                  {reviews.some(r => r.user?._id === user?.id || r.user === user?.id)
+                    ? 'Update Your Review'
+                    : 'Write a Customer Review'}
+                </h5>
+                
+                {isAuthenticated ? (
+                  <form onSubmit={handleReviewSubmit}>
+                    <div className="mb-3">
+                      <label className="form-label fw-semibold small">Rating</label>
+                      <div className="d-flex gap-2 fs-4 text-warning">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <span
+                            key={star}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => setRatingInput(star)}
+                          >
+                            {star <= ratingInput ? '★' : '☆'}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="mb-3">
+                      <label htmlFor="review-comment" className="form-label fw-semibold small">Comment</label>
+                      <textarea
+                        id="review-comment"
+                        className="form-control"
+                        rows="4"
+                        placeholder="Share your experience with this product..."
+                        value={commentInput}
+                        onChange={(e) => setCommentInput(e.target.value)}
+                        required
+                      ></textarea>
+                    </div>
+                    
+                    <button
+                      type="submit"
+                      className="btn btn-dark w-100 rounded-pill py-2.5 fw-bold"
+                      disabled={submittingReview}
+                    >
+                      {submittingReview ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Submitting...
+                        </>
+                      ) : (
+                        'Submit Review'
+                      )}
+                    </button>
+                  </form>
+                ) : (
+                  <div className="text-center py-3">
+                    <p className="text-muted small">You must be logged in to leave a review.</p>
+                    <Link to="/login" className="btn btn-outline-dark rounded-pill px-4 btn-sm">
+                      Log In to Review
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

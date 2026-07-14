@@ -80,7 +80,8 @@ const ProductCard = ({
               {'☆'.repeat(5 - safeRating)}
             </span>
             <span className="ms-1 text-dark small" aria-hidden="true">
-              {product.rating ? `${product.rating}/5` : ''}
+              {product.rating ? `${Number(product.rating).toFixed(1)}/5` : '0/5'}
+              <span className="text-muted ms-1 small">({product.numReviews || 0})</span>
             </span>
           </div>
         )}
