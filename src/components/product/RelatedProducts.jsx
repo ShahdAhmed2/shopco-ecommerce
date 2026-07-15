@@ -7,22 +7,69 @@ import ProductCardSkeleton from '../ui/ProductCardSkeleton';
 
 /**
  * RelatedProducts Component.
- * Displays a list of related products, excluding the current product,
- * based on the same section ('new-arrivals' or 'top-selling').
+ * Displays a list of related products based on a similarity score algorithm.
  */
-const RelatedProducts = ({ currentProductId, section }) => {
+const RelatedProducts = ({ currentProduct }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { data: products = [], isLoading, isError, error } = useProducts(section);
+  // Fetch all products (no filter constraint) to compute similarity scores
+  const { data: allProducts = [], isLoading, isError, error } = useProducts();
 
   const handleAddToCart = React.useCallback((product) => {
     addToCart(product);
   }, [addToCart]);
 
-  // Exclude current product and slice to max 4 items
-  const relatedList = products
-    .filter((p) => p.id !== currentProductId)
-    .slice(0, 4);
+  const relatedList = React.useMemo(() => {
+    if (!currentProduct || !allProducts || allProducts.length === 0) return [];
+
+    // Exclude currently viewed product
+    const otherProducts = allProducts.filter(
+      (p) => p.id !== currentProduct.id && p._id !== currentProduct.id && p._id !== currentProduct._id
+    );
+
+    // Calculate similarity score
+    const scored = otherProducts.map((p) => {
+      let score = 0;
+
+      // 1. Same Category (highest priority)
+      if (p.category && currentProduct.category && p.category.toLowerCase() === currentProduct.category.toLowerCase()) {
+        score += 100;
+      }
+
+      // 2. Same Dress Style
+      if (p.dressStyle && currentProduct.dressStyle && p.dressStyle.toLowerCase() === currentProduct.dressStyle.toLowerCase()) {
+        score += 10;
+      }
+
+      // 3. Same Brand
+      if (p.brand && currentProduct.brand && p.brand.toLowerCase() === currentProduct.brand.toLowerCase()) {
+        score += 5;
+      }
+
+      // 4. Similar Price Range (within $30: +2 points, within $50: +1 point)
+      if (typeof p.price === 'number' && typeof currentProduct.price === 'number') {
+        const diff = Math.abs(p.price - currentProduct.price);
+        if (diff <= 30) {
+          score += 2;
+        } else if (diff <= 50) {
+          score += 1;
+        }
+      }
+
+      // 5. Same Section (Tie-breaker)
+      if (p.section && currentProduct.section && p.section.toLowerCase() === currentProduct.section.toLowerCase()) {
+        score += 0.5;
+      }
+
+      return { product: p, score };
+    });
+
+    // Sort by score descending
+    scored.sort((a, b) => b.score - a.score);
+
+    // Return top 4 related products
+    return scored.slice(0, 4).map((item) => item.product);
+  }, [allProducts, currentProduct]);
 
   if (isLoading) {
     return (

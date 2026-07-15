@@ -28,16 +28,16 @@ const BrowseByDressStyle = () => {
   };
 
   return (
-    <section className="py-5">
+    <section className="py-4">
       <div
-        className="container px-4 py-5"
+        className="container px-4 py-4"
         style={{
           backgroundColor: '#F0F0F0',
           borderRadius: '40px',
           maxWidth: '1240px',
         }}
       >
-        <h2 className="heading-integral text-center mb-4 happy-heading" style={{ paddingBottom: '50px' }}>
+        <h2 className="heading-integral text-center mb-4 happy-heading fw-bold">
           BROWSE BY DRESS STYLE
         </h2>
 

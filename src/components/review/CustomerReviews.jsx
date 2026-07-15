@@ -14,11 +14,11 @@ const CustomerReviews = () => {
   };
 
   return (
-    <section className="py-5 bg-white customer-reviews-section">
+    <section className="py-4 bg-white customer-reviews-section">
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center mb-4 flex-nowrap w-100">
-          <h2 className="fw-bold heading-integral mb-0 happy-heading">OUR HAPPY CUSTOMERS</h2>
-          <div className="d-flex gap-2">
+        <div className="position-relative mb-4">
+          <h2 className="fw-bold text-center heading-integral mb-0 happy-heading">OUR HAPPY CUSTOMERS</h2>
+          <div className="position-absolute end-0 top-50 translate-middle-y d-flex gap-2 d-none d-sm-flex">
             <button
               className="btn"
               onClick={scrollLeft}

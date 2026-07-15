@@ -13,7 +13,7 @@ const ProductCardSkeleton = ({ style = {}, className = '' }) => {
     <div
       className={`card product-card-skeleton border-0 text-center bg-white flex-shrink-0 skeleton-pulse ${className}`}
       style={{
-        width: '300px',
+        width: '100%',
         ...style,
       }}
     >

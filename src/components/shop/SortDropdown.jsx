@@ -11,9 +11,12 @@ const SortDropdown = () => {
   const options = [
     { value: '', label: 'Featured' },
     { value: 'newest', label: 'Newest' },
-    { value: 'price-asc', label: 'Price: Low to High' },
-    { value: 'price-desc', label: 'Price: High to Low' },
+    { value: 'price-asc', label: 'Price: Low → High' },
+    { value: 'price-desc', label: 'Price: High → Low' },
     { value: 'rating-desc', label: 'Highest Rated' },
+    { value: 'reviews-desc', label: 'Most Reviewed' },
+    { value: 'name-asc', label: 'A-Z' },
+    { value: 'name-desc', label: 'Z-A' },
   ];
 
   return (

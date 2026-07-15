@@ -18,15 +18,25 @@ const ShopGrid = ({ searchQuery }) => {
   const navigate = useNavigate();
   const {
     category,
+    setCategory,
     dressStyle,
+    setDressStyle,
     brand,
+    setBrand,
     section,
+    setSection,
     color,
+    setColor,
     size,
+    setSize,
     minPrice,
+    setMinPrice,
     maxPrice,
+    setMaxPrice,
     rating,
+    setRating,
     sort,
+    resetFilters,
   } = useFilters();
 
   const filters = useMemo(() => ({
@@ -51,7 +61,7 @@ const ShopGrid = ({ searchQuery }) => {
   const [selectedColor, setSelectedColor] = useState('Black');
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const itemsPerPage = 8; // Adjust to 8 for neat 4-column desktop grids (multiple of 4)
 
   // Reset to page 1 whenever filters, search, or sorting change
   useEffect(() => {
@@ -146,7 +156,13 @@ const ShopGrid = ({ searchQuery }) => {
       } else if (sort === 'rating-desc') {
         result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
       } else if (sort === 'newest') {
-        result.sort((a, b) => Number(b.id) - Number(a.id));
+        result.sort((a, b) => String(b.id || '').localeCompare(String(a.id || '')));
+      } else if (sort === 'reviews-desc') {
+        result.sort((a, b) => (b.numReviews || 0) - (a.numReviews || 0));
+      } else if (sort === 'name-asc') {
+        result.sort((a, b) => String(a.name || '').localeCompare(String(b.name || '')));
+      } else if (sort === 'name-desc') {
+        result.sort((a, b) => String(b.name || '').localeCompare(String(a.name || '')));
       }
     }
 
@@ -174,6 +190,80 @@ const ShopGrid = ({ searchQuery }) => {
     addToCart(product, selectedSize, selectedColor);
   }, [addToCart, selectedSize, selectedColor]);
 
+  // Remove individual filter chips
+  const removeFilter = (filterType) => {
+    if (filterType === 'category') setCategory('');
+    if (filterType === 'dressStyle') setDressStyle('');
+    if (filterType === 'brand') setBrand('');
+    if (filterType === 'section') setSection('');
+    if (filterType === 'color') setColor('');
+    if (filterType === 'size') setSize('');
+    if (filterType === 'price') {
+      setMinPrice(0);
+      setMaxPrice(1000);
+    }
+    if (filterType === 'rating') setRating(0);
+  };
+
+  const hasActiveFilters = category || dressStyle || brand || section || color || size || minPrice > 0 || maxPrice < 1000 || rating > 0;
+
+  const renderActiveChips = () => {
+    if (!hasActiveFilters) return null;
+    return (
+      <div className="d-flex flex-wrap gap-2 mb-3 align-items-center">
+        <span className="text-muted small">Active Filters:</span>
+        {category && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Category: {category}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('category')} aria-label="Remove category filter"></button>
+          </span>
+        )}
+        {dressStyle && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Style: {dressStyle}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('dressStyle')} aria-label="Remove style filter"></button>
+          </span>
+        )}
+        {brand && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Brand: {brand}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('brand')} aria-label="Remove brand filter"></button>
+          </span>
+        )}
+        {section && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Section: {section}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('section')} aria-label="Remove section filter"></button>
+          </span>
+        )}
+        {color && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Color: {color}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('color')} aria-label="Remove color filter"></button>
+          </span>
+        )}
+        {size && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Size: {size}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('size')} aria-label="Remove size filter"></button>
+          </span>
+        )}
+        {(minPrice > 0 || maxPrice < 1000) && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Price: ${minPrice} - ${maxPrice}
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('price')} aria-label="Remove price filter"></button>
+          </span>
+        )}
+        {rating > 0 && (
+          <span className="badge bg-light text-dark border d-flex align-items-center gap-1 py-2 px-3 rounded-pill" style={{ fontSize: '0.8rem' }}>
+            Rating: {rating}★ & Up
+            <button type="button" className="btn-close" style={{ fontSize: '0.55rem' }} onClick={() => removeFilter('rating')} aria-label="Remove rating filter"></button>
+          </span>
+        )}
+      </div>
+    );
+  };
+
   if (isLoading) {
     return (
       <div className="shop-grid p-4 border rounded-3 bg-white">
@@ -181,9 +271,11 @@ const ShopGrid = ({ searchQuery }) => {
           <h5 className="fw-bold mb-0">All Products</h5>
           <div className="skeleton-pulse" style={{ width: '120px', height: '35px', backgroundColor: '#f0f0f0', borderRadius: '4px' }}></div>
         </div>
-        <div className="shop-products-layout">
+        <div className="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4">
           {Array.from({ length: itemsPerPage }).map((_, idx) => (
-            <ProductCardSkeleton key={`shop-skele-${idx}`} style={{ width: '100%' }} />
+            <div className="col" key={`shop-skele-${idx}`}>
+              <ProductCardSkeleton style={{ width: '100%' }} />
+            </div>
           ))}
         </div>
       </div>
@@ -204,11 +296,28 @@ const ShopGrid = ({ searchQuery }) => {
 
   if (filteredProducts.length === 0) {
     return (
-      <div className="shop-grid d-flex align-items-center justify-content-center border rounded-3 bg-white">
+      <div className="shop-grid p-4 border rounded-3 bg-white">
+        <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2 pb-2 border-bottom">
+          <div className="d-flex flex-column align-items-start">
+            <h5 className="fw-bold mb-0">All Products</h5>
+            <span className="text-muted small mt-1">Showing 0 of {products.length} Products</span>
+          </div>
+          <SortDropdown />
+        </div>
+
+        {renderActiveChips()}
+
         <div className="text-center py-5 text-muted">
           <i className="bi bi-inbox fs-1 mb-2 d-block"></i>
-          <h5 className="fw-bold">No products found</h5>
-          <p className="small mb-0">Check back later or try adjusting filters once enabled!</p>
+          <h5 className="fw-bold text-dark">No products found</h5>
+          <p className="small mb-3">Try changing your filters.</p>
+          <button
+            type="button"
+            className="btn btn-dark btn-sm rounded-pill px-4"
+            onClick={resetFilters}
+          >
+            Reset Filters
+          </button>
         </div>
       </div>
     );
@@ -217,18 +326,27 @@ const ShopGrid = ({ searchQuery }) => {
   return (
     <div className="shop-grid p-4 border rounded-3 bg-white">
       <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2 pb-2 border-bottom">
-        <h5 className="fw-bold mb-0">All Products</h5>
+        <div className="d-flex flex-column align-items-start">
+          <h5 className="fw-bold mb-0">All Products</h5>
+          <span className="text-muted small mt-1">
+            Showing {filteredProducts.length} of {products.length} Products
+          </span>
+        </div>
         <SortDropdown />
       </div>
-      
+
+      {renderActiveChips()}
+
       {/* Product Cards Layout Grid */}
-      <div className="shop-products-layout">
+      <div className="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4 mb-4">
         {paginatedProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onAddToCart={handleAddToCart}
-          />
+          <div className="col d-flex align-items-stretch" key={product.id}>
+            <ProductCard
+              product={product}
+              onAddToCart={handleAddToCart}
+              className="w-100"
+            />
+          </div>
         ))}
       </div>
 

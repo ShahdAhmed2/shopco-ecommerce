@@ -24,7 +24,7 @@ const ProductDetails = () => {
 
   const queryClient = useQueryClient();
   const { user, isAuthenticated } = useAuth();
-  
+
   const [reviews, setReviews] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
   const [ratingInput, setRatingInput] = useState(5);
@@ -197,15 +197,14 @@ const ProductDetails = () => {
         </nav>
 
         {/* Details Grid */}
-        <div className="row g-5">
+        <div className="row g-5 mb-5">
           {/* Left Column: Image display */}
           <div className="col-12 col-md-6">
-            <div className="product-image-container border rounded-3 p-3 bg-white text-center">
+            <div className="product-image-container">
               <img
                 src={product.image || 'https://via.placeholder.com/500x400.png'}
                 alt={product.name}
-                className="img-fluid rounded animate-entry"
-                style={{ maxHeight: '500px', objectFit: 'contain' }}
+                className="animate-entry"
                 onError={(e) => {
                   e.target.src = 'https://via.placeholder.com/500x400.png';
                 }}
@@ -313,10 +312,16 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
+        {/* You Might Also Like Section (Reordered below details) */}
+        <div className="mt-5 pt-4 border-top mb-5">
+          <h4 className="fw-bold mb-4 text-center text-lg-start heading-integral">You Might Also Like</h4>
+          <RelatedProducts currentProduct={product} />
+        </div>
+
+        {/* Customer Reviews Section */}
         <div className="mt-5 pt-4 border-top">
           <h4 className="fw-bold mb-4 heading-integral">Customer Reviews ({reviews.length})</h4>
-          
+
           <div className="row g-4">
             {/* Reviews List */}
             <div className="col-12 col-lg-7">
@@ -336,7 +341,7 @@ const ProductDetails = () => {
                   {reviews.map((rev) => {
                     const reviewerId = rev.user?._id || rev.user;
                     const canDelete = isAuthenticated && (user?.id === reviewerId || user?.role === 'admin');
-                    
+
                     return (
                       <div key={rev._id} className="card p-3 border border-light-subtle rounded-3 shadow-sm">
                         <div className="d-flex justify-content-between align-items-start">
@@ -382,7 +387,7 @@ const ProductDetails = () => {
                     ? 'Update Your Review'
                     : 'Write a Customer Review'}
                 </h5>
-                
+
                 {isAuthenticated ? (
                   <form onSubmit={handleReviewSubmit}>
                     <div className="mb-3">
@@ -399,7 +404,7 @@ const ProductDetails = () => {
                         ))}
                       </div>
                     </div>
-                    
+
                     <div className="mb-3">
                       <label htmlFor="review-comment" className="form-label fw-semibold small">Comment</label>
                       <textarea
@@ -412,7 +417,7 @@ const ProductDetails = () => {
                         required
                       ></textarea>
                     </div>
-                    
+
                     <button
                       type="submit"
                       className="btn btn-dark w-100 rounded-pill py-2.5 fw-bold"
@@ -439,12 +444,6 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Related Products Section */}
-        <div className="mt-5 pt-4 border-top">
-          <h4 className="fw-bold mb-4 text-center text-lg-start heading-integral">You Might Also Like</h4>
-          <RelatedProducts currentProductId={product.id} section={product.section} />
         </div>
       </div>
       <Footer />

@@ -1,0 +1,66 @@
+.product-card {
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #f2f2f2 !important;
+  overflow: hidden;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+}
+
+.product-card-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+.product-card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.product-card:hover .product-card-img-wrapper img {
+  transform: scale(1.03);
+}
+
+/* Hover Quick Actions Overlay */
+.quick-actions-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 4;
+}
+
+/* On Desktop Hover, Show Actions Overlay */
+@media (min-width: 992px) {
+  .product-card:hover .quick-actions-overlay {
+    opacity: 1;
+  }
+}
+
+/* Title text line clamping */
+.product-title-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.6rem;
+  line-height: 1.3rem;
+  font-weight: 700 !important;
+}
