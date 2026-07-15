@@ -29,4 +29,24 @@ export const orderService = {
     const response = await api.get(`/orders/${id}`);
     return response.data.data;
   },
+
+  /**
+   * Fetch all orders (admin only)
+   * @returns {Promise<Array>} List of all customer orders
+   */
+  getAllOrders: async () => {
+    const response = await api.get('/orders');
+    return response.data.data;
+  },
+
+  /**
+   * Update order status (admin only)
+   * @param {string} id - The order ID
+   * @param {string} status - New status code ('Pending' | 'Confirmed' | 'Shipped' | 'Delivered')
+   * @returns {Promise<Object>} The updated order
+   */
+  updateOrderStatus: async (id, status) => {
+    const response = await api.put(`/orders/${id}/status`, { status });
+    return response.data.data;
+  },
 };
