@@ -1,8 +1,11 @@
-const products = [
+import { productImages } from '../assets/products';
+
+export const products = [
   {
+    id: "t1",
     name: "Essential Cotton T-Shirt",
     description: "Crafted from premium breathable cotton for all-day comfort and everyday style.",
-    image: "/src/assets/products/tshirts/tshirt1.jpg",
+    image: productImages.tshirts.tshirt1,
     category: "T-Shirts",
     dressStyle: "Casual",
     gender: "Men",
@@ -16,9 +19,10 @@ const products = [
     numReviews: 12
   },
   {
+    id: "t2",
     name: "Vintage Heavyweight Tee",
     description: "Features a retro boxy fit and durable heavyweight cotton blend for a classic streetwear vibe.",
-    image: "/src/assets/products/tshirts/tshirt2.jpg",
+    image: productImages.tshirts.tshirt2,
     category: "T-Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -32,9 +36,10 @@ const products = [
     numReviews: 18
   },
   {
+    id: "t3",
     name: "Classic Pocket Tee",
     description: "Simple, clean, and highly versatile pocket tee in a soft combed-cotton weave.",
-    image: "/src/assets/products/tshirts/tshirt3.jpg",
+    image: productImages.tshirts.tshirt3,
     category: "T-Shirts",
     dressStyle: "Casual",
     gender: "Men",
@@ -48,9 +53,10 @@ const products = [
     numReviews: 25
   },
   {
+    id: "t4",
     name: "Graphic Streetwear Tee",
     description: "Bold custom screen-printed design on a relaxed-fit premium cotton canvas.",
-    image: "/src/assets/products/tshirts/tshirt4.jpg",
+    image: productImages.tshirts.tshirt4,
     category: "T-Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -64,9 +70,10 @@ const products = [
     numReviews: 8
   },
   {
+    id: "t5",
     name: "Athletic Tech Tee",
     description: "Moisture-wicking, fast-drying lightweight knit perfect for high-intensity training sessions.",
-    image: "/src/assets/products/tshirts/tshirt5.jpg",
+    image: productImages.tshirts.tshirt5,
     category: "T-Shirts",
     dressStyle: "Gym",
     gender: "Men",
@@ -80,9 +87,10 @@ const products = [
     numReviews: 15
   },
   {
+    id: "t7",
     name: "Premium Boxy Fit Tee",
     description: "Drape yourself in luxury with this ultra-soft spun knit top featuring modern drop-shoulder tailoring.",
-    image: "/src/assets/products/tshirts/tshirt7.png",
+    image: productImages.tshirts.tshirt7,
     category: "T-Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -96,9 +104,10 @@ const products = [
     numReviews: 21
   },
   {
+    id: "t8",
     name: "Minimalist Logo Tee",
     description: "Features a clean and subtle embroidered branding detail for clean minimalist looks.",
-    image: "/src/assets/products/tshirts/tshirt8.png",
+    image: productImages.tshirts.tshirt8,
     category: "T-Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -112,9 +121,10 @@ const products = [
     numReviews: 30
   },
   {
+    id: "t9",
     name: "Active Training Tee",
     description: "Breathable mesh panels offer targeted ventilation to keep you cool under pressure.",
-    image: "/src/assets/products/tshirts/tshirt9.png",
+    image: productImages.tshirts.tshirt9,
     category: "T-Shirts",
     dressStyle: "Gym",
     gender: "Men",
@@ -128,9 +138,10 @@ const products = [
     numReviews: 14
   },
   {
+    id: "s1",
     name: "Classic Oxford Shirt",
     description: "Premium cotton oxford weave shirt offering a timeless look and superior breathability.",
-    image: "/src/assets/products/shirts/shirt1.webp",
+    image: productImages.shirts.shirt1,
     category: "Shirts",
     dressStyle: "Formal",
     gender: "Men",
@@ -144,9 +155,10 @@ const products = [
     numReviews: 120
   },
   {
+    id: "s2",
     name: "Slim Fit White Shirt",
     description: "Sleek and tailored white shirt constructed with lightweight fabric for sharp business presentation.",
-    image: "/src/assets/products/shirts/shirt.2jpg.jpg",
+    image: productImages.shirts.shirt_2jpg,
     category: "Shirts",
     dressStyle: "Formal",
     gender: "Men",
@@ -160,9 +172,10 @@ const products = [
     numReviews: 85
   },
   {
+    id: "s3",
     name: "Premium Linen Shirt",
     description: "Lightweight and airy pure linen shirt, perfect for staying cool in warm weather.",
-    image: "/src/assets/products/shirts/shirt3.jpg",
+    image: productImages.shirts.shirt3,
     category: "Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -176,9 +189,10 @@ const products = [
     numReviews: 95
   },
   {
+    id: "s4",
     name: "Casual Denim Shirt",
     description: "Washed cotton indigo denim workshirt featuring double chest pockets and heavy-duty seams.",
-    image: "/src/assets/products/shirts/shirt4.jpg",
+    image: productImages.shirts.shirt4,
     category: "Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -192,9 +206,10 @@ const products = [
     numReviews: 110
   },
   {
+    id: "s5",
     name: "Modern Checked Shirt",
     description: "Features a clean contemporary windowpane check design with casual roll-up button sleeves.",
-    image: "/src/assets/products/shirts/shirt5.webp",
+    image: productImages.shirts.shirt5,
     category: "Shirts",
     dressStyle: "Casual",
     gender: "Men",
@@ -208,9 +223,10 @@ const products = [
     numReviews: 64
   },
   {
+    id: "s6",
     name: "Business Formal Shirt",
     description: "Wrinkle-free stretch dress shirt with crisp spread collar, ideal for under-suit tailoring.",
-    image: "/src/assets/products/shirts/shirt6.webp",
+    image: productImages.shirts.shirt6,
     category: "Shirts",
     dressStyle: "Formal",
     gender: "Men",
@@ -224,9 +240,10 @@ const products = [
     numReviews: 180
   },
   {
+    id: "s8",
     name: "Relaxed Cotton Shirt",
     description: "Flowy, relaxed-fit cotton poplin shirt offering effortless luxury for off-duty days.",
-    image: "/src/assets/products/shirts/shirt8.png",
+    image: productImages.shirts.shirt8,
     category: "Shirts",
     dressStyle: "Casual",
     gender: "Women",
@@ -240,9 +257,10 @@ const products = [
     numReviews: 75
   },
   {
+    id: "s10",
     name: "Essential Everyday Shirt",
     description: "Soft washed-twill everyday button-down designed for versatile style, comfort and durability.",
-    image: "/src/assets/products/shirts/shirt10.png",
+    image: productImages.shirts.shirt10,
     category: "Shirts",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -256,9 +274,10 @@ const products = [
     numReviews: 92
   },
   {
+    id: "j1",
     name: "Slim Fit Jeans",
     description: "Classic slim-cut denim offering a modern silhouette with comfortable stretch.",
-    image: "/src/assets/products/jeans/jeans1.jpg",
+    image: productImages.jeans.jeans1,
     category: "Jeans",
     dressStyle: "Casual",
     gender: "Men",
@@ -272,9 +291,10 @@ const products = [
     numReviews: 125
   },
   {
+    id: "j2",
     name: "Straight Fit Jeans",
     description: "Traditional straight-leg cut made from durable heavyweight indigo cotton denim.",
-    image: "/src/assets/products/jeans/jeans.jpg",
+    image: productImages.jeans.jeans,
     category: "Jeans",
     dressStyle: "Casual",
     gender: "Men",
@@ -288,9 +308,10 @@ const products = [
     numReviews: 88
   },
   {
+    id: "j3",
     name: "Relaxed Fit Jeans",
     description: "Loose and roomy skate-inspired relaxed denim for maximum casual comfort.",
-    image: "/src/assets/products/jeans/jeans3.jpg",
+    image: productImages.jeans.jeans3,
     category: "Jeans",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -304,9 +325,10 @@ const products = [
     numReviews: 76
   },
   {
+    id: "j4",
     name: "Skinny Jeans",
     description: "Flattering skinny fit denim in a highly responsive deep black stretch blend.",
-    image: "/src/assets/products/jeans/jeans4.jpg",
+    image: productImages.jeans.jeans4,
     category: "Jeans",
     dressStyle: "Casual",
     gender: "Women",
@@ -320,9 +342,10 @@ const products = [
     numReviews: 142
   },
   {
+    id: "j5",
     name: "Wide Leg Jeans",
     description: "Fashion-forward wide-leg silhouette in premium stone-washed organic cotton denim.",
-    image: "/src/assets/products/jeans/jeans5.jpg",
+    image: productImages.jeans.jeans5,
     category: "Jeans",
     dressStyle: "Streetwear",
     gender: "Women",
@@ -336,9 +359,10 @@ const products = [
     numReviews: 95
   },
   {
+    id: "j6",
     name: "Cargo Denim Jeans",
     description: "Rugged utilitarian cargo style jeans featuring deep side flap pockets and reinforced stitching.",
-    image: "/src/assets/products/jeans/jeans6.jpg",
+    image: productImages.jeans.jeans6,
     category: "Jeans",
     dressStyle: "Streetwear",
     gender: "Unisex",
@@ -352,9 +376,10 @@ const products = [
     numReviews: 64
   },
   {
+    id: "j7",
     name: "Vintage Wash Jeans",
     description: "Hand-sanded wash denim providing authentic retro fading, whiskers, and look.",
-    image: "/src/assets/products/jeans/jeans7.png",
+    image: productImages.jeans.jeans7,
     category: "Jeans",
     dressStyle: "Casual",
     gender: "Men",
@@ -368,9 +393,10 @@ const products = [
     numReviews: 104
   },
   {
+    id: "j8",
     name: "Distressed Jeans",
     description: "Premium heavy-duty distressed denim with built-in rip details and repaired patches.",
-    image: "/src/assets/products/jeans/jeans8.png",
+    image: productImages.jeans.jeans8,
     category: "Jeans",
     dressStyle: "Streetwear",
     gender: "Unisex",
@@ -384,9 +410,10 @@ const products = [
     numReviews: 118
   },
   {
+    id: "h1",
     name: "Classic Pullover Hoodie",
     description: "Classic pullover hoodie with a spacious front kanga pocket and adjustable drawstring hood.",
-    image: "/src/assets/products/hoodies/hoodie1.jpg",
+    image: productImages.hoodies.hoodie1,
     category: "Hoodies",
     dressStyle: "Casual",
     gender: "Men",
@@ -400,9 +427,10 @@ const products = [
     numReviews: 110
   },
   {
+    id: "h2",
     name: "Oversized Street Hoodie",
     description: "Oversized drop-shoulder hoodie built from heavy-duty fleece for an authentic street look.",
-    image: "/src/assets/products/hoodies/hoodie2.jpg",
+    image: productImages.hoodies.hoodie2,
     category: "Hoodies",
     dressStyle: "Streetwear",
     gender: "Unisex",
@@ -416,9 +444,10 @@ const products = [
     numReviews: 95
   },
   {
+    id: "h3",
     name: "Essential Zip Hoodie",
     description: "Versatile full-zip hoodie made from soft cotton-blend French terry, perfect for daily layering.",
-    image: "/src/assets/products/hoodies/hoodie3.jpg",
+    image: productImages.hoodies.hoodie3,
     category: "Hoodies",
     dressStyle: "Casual",
     gender: "Men",
@@ -432,9 +461,10 @@ const products = [
     numReviews: 85
   },
   {
+    id: "h4",
     name: "Heavyweight Cotton Hoodie",
     description: "Substantial 450gsm heavyweight cotton fleece hoodie designed for premium structure and warmth.",
-    image: "/src/assets/products/hoodies/hoodie4.jpg",
+    image: productImages.hoodies.hoodie4,
     category: "Hoodies",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -448,9 +478,10 @@ const products = [
     numReviews: 60
   },
   {
+    id: "h5",
     name: "Premium Fleece Hoodie",
     description: "Incredibly soft brushed fleece hoodie featuring a relaxed fit and clean minimalist look.",
-    image: "/src/assets/products/hoodies/hoodie5.jpg",
+    image: productImages.hoodies.hoodie5,
     category: "Hoodies",
     dressStyle: "Casual",
     gender: "Women",
@@ -464,9 +495,10 @@ const products = [
     numReviews: 130
   },
   {
+    id: "h6",
     name: "Sport Performance Hoodie",
     description: "Sleek moisture-wicking stretch performance hoodie with thumbhole cuffs for athletic training.",
-    image: "/src/assets/products/hoodies/hoodie6.jpg",
+    image: productImages.hoodies.hoodie6,
     category: "Hoodies",
     dressStyle: "Gym",
     gender: "Men",
@@ -480,9 +512,10 @@ const products = [
     numReviews: 78
   },
   {
+    id: "h7",
     name: "Urban Everyday Hoodie",
     description: "Lightweight and breathable everyday pullover hoodie ideal for year-round comfort.",
-    image: "/src/assets/products/hoodies/hoodie7.jpg",
+    image: productImages.hoodies.hoodie7,
     category: "Hoodies",
     dressStyle: "Casual",
     gender: "Unisex",
@@ -496,9 +529,10 @@ const products = [
     numReviews: 92
   },
   {
+    id: "f1",
     name: "Classic Slim Fit Suit",
     description: "Tailored from a premium wool blend, this single-breasted suit offers a sharp, modern silhouette.",
-    image: "/src/assets/products/formal/Formal1.jpg",
+    image: productImages.formal.Formal1,
     category: "Formal Wear",
     dressStyle: "Formal",
     gender: "Men",
@@ -512,9 +546,10 @@ const products = [
     numReviews: 85
   },
   {
+    id: "f2",
     name: "Business Executive Blazer",
     description: "A structured, partially lined blazer crafted from textured twill for polished daily office wear.",
-    image: "/src/assets/products/formal/Formal2.jpg",
+    image: productImages.formal.Formal2,
     category: "Formal Wear",
     dressStyle: "Office",
     gender: "Men",
@@ -528,9 +563,10 @@ const products = [
     numReviews: 64
   },
   {
+    id: "f3",
     name: "Modern Herringbone Waistcoat",
     description: "Dapper herringbone-woven vest featuring a five-button front closure and adjustable back strap.",
-    image: "/src/assets/products/formal/Formal3.jpg",
+    image: productImages.formal.Formal3,
     category: "Formal Wear",
     dressStyle: "Business",
     gender: "Men",
@@ -544,9 +580,10 @@ const products = [
     numReviews: 48
   },
   {
+    id: "f4",
     name: "Traditional Notch Lapel Suit",
     description: "Classic notch lapel suit set with flat-front trousers, tailored for weddings and upscale dinners.",
-    image: "/src/assets/products/formal/Formal4.jpg",
+    image: productImages.formal.Formal4,
     category: "Formal Wear",
     dressStyle: "Formal",
     gender: "Men",
@@ -560,9 +597,10 @@ const products = [
     numReviews: 70
   },
   {
+    id: "f5",
     name: "Premium Dress Trousers",
     description: "Slim-fit formal dress pants finished with a clean crease and slide-buckle waist closure.",
-    image: "/src/assets/products/formal/Formal5.jpg",
+    image: productImages.formal.Formal5,
     category: "Formal Wear",
     dressStyle: "Office",
     gender: "Men",
@@ -576,9 +614,10 @@ const products = [
     numReviews: 92
   },
   {
+    id: "f6",
     name: "Elegant Tailored Dress",
     description: "Sophisticated formal office sheath dress featuring clean structured tailoring and keyhole neckline.",
-    image: "/src/assets/products/formal/Formal6.jpg",
+    image: productImages.formal.Formal6,
     category: "Formal Wear",
     dressStyle: "Business",
     gender: "Women",
@@ -592,9 +631,10 @@ const products = [
     numReviews: 105
   },
   {
+    id: "f7",
     name: "Classic Corporate Pantsuit",
     description: "Refined two-piece women's pantsuit comprising a single-button blazer and matching slim-cut trousers.",
-    image: "/src/assets/products/formal/Formal7.jpg",
+    image: productImages.formal.Formal7,
     category: "Formal Wear",
     dressStyle: "Office",
     gender: "Women",
@@ -608,9 +648,10 @@ const products = [
     numReviews: 58
   },
   {
+    id: "f8",
     name: "Graceful Evening Gown",
     description: "Breathtaking floor-length formal gown with pleated bodice and satin lining for special galas.",
-    image: "/src/assets/products/formal/Formal8.jpg",
+    image: productImages.formal.Formal8,
     category: "Formal Wear",
     dressStyle: "Formal",
     gender: "Women",
@@ -624,9 +665,10 @@ const products = [
     numReviews: 120
   },
   {
+    id: "f9",
     name: "Double Breasted Dinner Jacket",
     description: "Premium double-breasted dinner jacket featuring peak lapels and structural padded shoulders.",
-    image: "/src/assets/products/formal/Formal9.jpg",
+    image: productImages.formal.Formal9,
     category: "Formal Wear",
     dressStyle: "Formal",
     gender: "Men",
@@ -640,9 +682,10 @@ const products = [
     numReviews: 42
   },
   {
+    id: "p1",
     name: "Satin V-Neck Slip Dress",
     description: "Fluid silk-satin dress featuring a sophisticated draped cowl neck and adjustable cross-back straps.",
-    image: "/src/assets/products/party/Party1.jpg",
+    image: productImages.party.Party1,
     category: "Party Wear",
     dressStyle: "Luxury",
     gender: "Women",
@@ -656,9 +699,10 @@ const products = [
     numReviews: 64
   },
   {
+    id: "p2",
     name: "Off-Shoulder Velvet Gown",
     description: "Rich luxury velvet evening gown tailored with an off-shoulder neckline and elegant side-slit detail.",
-    image: "/src/assets/products/party/Party2.jpg",
+    image: productImages.party.Party2,
     category: "Party Wear",
     dressStyle: "Evening",
     gender: "Women",
@@ -672,9 +716,10 @@ const products = [
     numReviews: 95
   },
   {
+    id: "p3",
     name: "Sequined Mini Cocktail Dress",
     description: "Showstopping party dress fully embellished with shimmer sequins, designed in a classic fit-and-flare cut.",
-    image: "/src/assets/products/party/Party3.jpg",
+    image: productImages.party.Party3,
     category: "Party Wear",
     dressStyle: "Party",
     gender: "Women",
@@ -688,9 +733,10 @@ const products = [
     numReviews: 70
   },
   {
+    id: "p4",
     name: "Floral Print Chiffon Maxi",
     description: "Floating crinkled chiffon maxi dress printed with hand-painted floral graphics, finished with a tiered skirt.",
-    image: "/src/assets/products/party/Party4.jpg",
+    image: productImages.party.Party4,
     category: "Party Wear",
     dressStyle: "Luxury",
     gender: "Women",
@@ -704,9 +750,10 @@ const products = [
     numReviews: 48
   },
   {
+    id: "p5",
     name: "One-Shoulder Drape Dress",
     description: "Asymmetrical draped evening dress in a heavy stretch crepe, tailored for a flattering figure-hugging fit.",
-    image: "/src/assets/products/party/Party5.jpg",
+    image: productImages.party.Party5,
     category: "Party Wear",
     dressStyle: "Evening",
     gender: "Women",
@@ -720,9 +767,10 @@ const products = [
     numReviews: 82
   },
   {
+    id: "p6",
     name: "Elegant Lace Midi Dress",
     description: "Sophisticated midi dress overlayed in intricate floral lace with scallop eyelash edges and sheer sleeves.",
-    image: "/src/assets/products/party/Party6.jpg",
+    image: productImages.party.Party6,
     category: "Party Wear",
     dressStyle: "Luxury",
     gender: "Women",
@@ -736,9 +784,10 @@ const products = [
     numReviews: 120
   },
   {
+    id: "p7",
     name: "Sleeveless Satin Cocktail Dress",
     description: "A chic sleeveless cocktail dress in structural satin with pleat detailing at the waist.",
-    image: "/src/assets/products/party/Party7.jpg",
+    image: productImages.party.Party7,
     category: "Party Wear",
     dressStyle: "Party",
     gender: "Women",
@@ -752,9 +801,10 @@ const products = [
     numReviews: 54
   },
   {
+    id: "p8",
     name: "Pleated Metallic Wrap Dress",
     description: "Dazzling wrap dress in pleated metallic fabric featuring a cinched waist tie and elegant drape.",
-    image: "/src/assets/products/party/Party8.jpg",
+    image: productImages.party.Party8,
     category: "Party Wear",
     dressStyle: "Luxury",
     gender: "Women",
@@ -768,9 +818,10 @@ const products = [
     numReviews: 110
   },
   {
+    id: "a1",
     name: "Men's Tech Training Tee",
     description: "Lightweight and breathable polyester mesh active shirt with flatlock seams to prevent chafing.",
-    image: "/src/assets/products/gym/gym1.jpg",
+    image: productImages.gym.gym1,
     category: "Activewear",
     dressStyle: "Training",
     gender: "Men",
@@ -784,9 +835,10 @@ const products = [
     numReviews: 120
   },
   {
+    id: "a2",
     name: "Dry-Fit Athletic Workout Top",
     description: "Moisture-wicking training shirt engineered with ventilated mesh panels in high-heat zones.",
-    image: "/src/assets/products/gym/gym2.jpg",
+    image: productImages.gym.gym2,
     category: "Activewear",
     dressStyle: "Gym",
     gender: "Men",
@@ -800,9 +852,10 @@ const products = [
     numReviews: 88
   },
   {
+    id: "a3",
     name: "Unisex Performance Hoodie",
     description: "An ultra-stretch performance pullover hoodie built with a sleek scuba collar and secure zip pockets.",
-    image: "/src/assets/products/gym/gym3.jpg",
+    image: productImages.gym.gym3,
     category: "Activewear",
     dressStyle: "Activewear",
     gender: "Unisex",
@@ -816,9 +869,10 @@ const products = [
     numReviews: 64
   },
   {
+    id: "a4",
     name: "Athletic Compression Long Sleeve",
     description: "Body-mapping compression top designed to support core muscles and enhance blood flow during heavy lifting.",
-    image: "/src/assets/products/gym/gym4.jpg",
+    image: productImages.gym.gym4,
     category: "Activewear",
     dressStyle: "Training",
     gender: "Men",
@@ -832,9 +886,10 @@ const products = [
     numReviews: 95
   },
   {
+    id: "a5",
     name: "Seamless Workout Activewear Set",
     description: "Premium two-piece seamless activewear set comprising a medium-support sports bra and high-waist leggings.",
-    image: "/src/assets/products/gym/gym5.jpg",
+    image: productImages.gym.gym5,
     category: "Activewear",
     dressStyle: "Gym",
     gender: "Women",
@@ -848,9 +903,10 @@ const products = [
     numReviews: 140
   },
   {
+    id: "a6",
     name: "Oversized Gym Training Tee",
     description: "A relaxed, oversized heavy-cotton gym tee featuring a drop-shoulder design and vintage block branding.",
-    image: "/src/assets/products/gym/gym6.jpg",
+    image: productImages.gym.gym6,
     category: "Activewear",
     dressStyle: "Activewear",
     gender: "Women",
@@ -864,9 +920,10 @@ const products = [
     numReviews: 76
   },
   {
+    id: "a7",
     name: "Ribbed Seamless Leggings",
     description: "Ultra-soft ribbed seamless athletic leggings offering a high-rise compressive waistband and squat-proof build.",
-    image: "/src/assets/products/gym/gym7.jpg",
+    image: productImages.gym.gym7,
     category: "Activewear",
     dressStyle: "Gym",
     gender: "Women",
@@ -880,9 +937,10 @@ const products = [
     numReviews: 110
   },
   {
+    id: "a8",
     name: "Zip-Up Training Jacket",
     description: "Slim-fit lightweight activewear jacket featuring a full-zip front, thumbholes, and water-resistant coating.",
-    image: "/src/assets/products/gym/gym8.jpg",
+    image: productImages.gym.gym8,
     category: "Activewear",
     dressStyle: "Training",
     gender: "Women",
