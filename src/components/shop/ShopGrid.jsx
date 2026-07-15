@@ -19,6 +19,8 @@ const ShopGrid = ({ searchQuery }) => {
   const {
     category,
     dressStyle,
+    brand,
+    section,
     color,
     size,
     minPrice,
@@ -31,13 +33,15 @@ const ShopGrid = ({ searchQuery }) => {
     search: searchQuery || undefined,
     category: category || undefined,
     dressStyle: dressStyle || undefined,
+    brand: brand || undefined,
+    section: section || undefined,
     color: color || undefined,
     size: size || undefined,
     minPrice: minPrice || undefined,
     maxPrice: maxPrice || undefined,
     rating: rating || undefined,
     sort: sort || undefined,
-  }), [searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
+  }), [searchQuery, category, dressStyle, brand, section, color, size, minPrice, maxPrice, rating, sort]);
 
   const { data: products = [], isLoading, isError, error } = useProducts(filters);
 
@@ -52,7 +56,7 @@ const ShopGrid = ({ searchQuery }) => {
   // Reset to page 1 whenever filters, search, or sorting change
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
+  }, [searchQuery, category, dressStyle, brand, section, color, size, minPrice, maxPrice, rating, sort]);
 
   // Multi-tier client-side product filtering
   const filteredProducts = useMemo(() => {
@@ -74,6 +78,18 @@ const ShopGrid = ({ searchQuery }) => {
     if (dressStyle) {
       const term = dressStyle.toLowerCase();
       result = result.filter((p) => p.dressStyle && p.dressStyle.toLowerCase() === term);
+    }
+
+    // 3a. Brand match
+    if (brand) {
+      const term = brand.toLowerCase();
+      result = result.filter((p) => p.brand && p.brand.toLowerCase() === term);
+    }
+
+    // 3b. Section match
+    if (section) {
+      const term = section.toLowerCase();
+      result = result.filter((p) => p.section && p.section.toLowerCase() === term);
     }
 
     // 4. Color match
@@ -135,7 +151,7 @@ const ShopGrid = ({ searchQuery }) => {
     }
 
     return result;
-  }, [products, searchQuery, category, dressStyle, color, size, minPrice, maxPrice, rating, sort]);
+  }, [products, searchQuery, category, dressStyle, brand, section, color, size, minPrice, maxPrice, rating, sort]);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 

@@ -73,15 +73,33 @@ const Header = () => {
           {/* Navbar */}
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mx-auto d-flex align-items-center gap-4">
-              <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop" end>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle fw-medium" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Shop
-                </NavLink>
+                </a>
+                <ul className="dropdown-menu">
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=T-Shirts')}>T-Shirts</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=Shirts')}>Shirts</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=Jeans')}>Jeans</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=Hoodies')}>Hoodies</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=Formal Wear')}>Formal Wear</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=Party Wear')}>Party Wear</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?category=Activewear')}>Activewear</button></li>
+                </ul>
               </li>
-              <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?sale=true">
-                  On Sale
-                </NavLink>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle fw-medium" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Brands
+                </a>
+                <ul className="dropdown-menu">
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=UrbanX')}>UrbanX</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=StreetCore')}>StreetCore</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=NovaWear')}>NovaWear</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=PrimeWear')}>PrimeWear</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=Aura')}>Aura</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=MotionFit')}>MotionFit</button></li>
+                  <li><button className="dropdown-item py-2 fw-medium" onClick={() => navigate('/shop?brand=EliteWear')}>EliteWear</button></li>
+                </ul>
               </li>
               <li className="nav-item">
                 <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?section=new-arrivals">
@@ -89,15 +107,17 @@ const Header = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?brands=true">
-                  Brands
+                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/shop?section=top-selling">
+                  Top Selling
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/admin">
-                  Dashboard
-                </NavLink>
-              </li>
+              {user && user.role === 'admin' && (
+                <li className="nav-item">
+                  <NavLink className={({ isActive }) => `nav-link fw-medium ${isActive ? 'active' : ''}`} to="/admin">
+                    Dashboard
+                  </NavLink>
+                </li>
+              )}
             </ul>
 
             {/* Search & Icons */}
