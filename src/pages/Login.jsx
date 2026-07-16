@@ -59,8 +59,8 @@ const Login = () => {
     <>
       <Header />
       <div className="login-page-wrapper d-flex align-items-center justify-content-center py-5">
-        <SEO 
-          title="Sign In | SHOP.CO" 
+        <SEO
+          title="Sign In | SHOP.CO"
           description="Log into your SHOP.CO account to access shopping history, cart details, and profile configurations."
         />
         <div className="login-card p-4 p-md-5 rounded shadow-sm bg-white">

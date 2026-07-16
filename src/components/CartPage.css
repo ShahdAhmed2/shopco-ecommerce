@@ -35,19 +35,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .cart-item .row {
-    text-align: center;
-  }
-  
-  .cart-item .col-md-2,
-  .cart-item .col-md-4 {
-    margin-bottom: 15px;
-  }
-  
-  .quantity-controls {
-    justify-content: center;
-  }
-  
   .order-summary {
     margin-top: 30px;
     position: static;

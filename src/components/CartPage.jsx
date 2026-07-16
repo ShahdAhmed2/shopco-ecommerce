@@ -82,50 +82,70 @@ const CartPage = () => {
             <div className="cart-items">
               {items.map((item) => (
                 <div key={`${item.id}-${item.size}-${item.color}`} className="cart-item mb-4 p-4 border rounded">
-                  <div className="row align-items-center">
-                    <div className="col-md-2">
+                  <div className="row align-items-center g-3 text-start">
+                    {/* Left Thumbnail */}
+                    <div className="col-4 col-md-2 d-flex justify-content-center justify-content-md-start">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="img-fluid rounded"
-                        style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                        className="img-fluid rounded w-100"
+                        style={{ aspectRatio: '1/1', objectFit: 'cover', maxWidth: '100px' }}
                       />
                     </div>
-                    <div className="col-md-4">
-                      <h6 className="fw-semibold mb-1">{item.name}</h6>
-                      <p className="text-muted mb-1">Size: {item.size}</p>
-                      <p className="text-muted mb-0">Color: {item.color}</p>
-                    </div>
-                    <div className="col-md-2">
-                      <span className="fw-bold">${item.discount ? (item.price * (1 - item.discount / 100)).toFixed(2) : item.price}</span>
-                    </div>
-                    <div className="col-md-2">
-                      <div className="quantity-controls d-flex align-items-center">
-                        <button
-                          className="btn btn-outline-secondary btn-sm"
-                          onClick={() => handleQuantityChange(item, item.quantity - 1)}
-                          aria-label={`Decrease quantity of ${item.name}`}
-                        >
-                          -
-                        </button>
-                        <span className="mx-3" aria-label={`Quantity: ${item.quantity}`}>{item.quantity}</span>
-                        <button
-                          className="btn btn-outline-secondary btn-sm"
-                          onClick={() => handleQuantityChange(item, item.quantity + 1)}
-                          aria-label={`Increase quantity of ${item.name}`}
-                        >
-                          +
-                        </button>
+                    
+                    {/* Right Details Group */}
+                    <div className="col-8 col-md-10">
+                      <div className="row align-items-center g-2 text-start">
+                        {/* Name and size/color details */}
+                        <div className="col-12 col-md-5">
+                          <h6 className="fw-semibold mb-1 text-truncate" style={{ fontSize: '15px' }}>{item.name}</h6>
+                          <p className="text-muted mb-1 small">Size: {item.size} | Color: {item.color}</p>
+                        </div>
+                        
+                        {/* Price */}
+                        <div className="col-4 col-md-2">
+                          <span className="fw-bold d-block" style={{ fontSize: '15px' }}>
+                            ${item.discount ? (item.price * (1 - item.discount / 100)).toFixed(2) : item.price}
+                          </span>
+                        </div>
+                        
+                        {/* Quantity Controls */}
+                        <div className="col-6 col-md-3">
+                          <div className="quantity-controls d-flex align-items-center bg-light rounded-pill px-2 py-1 w-fit-content" style={{ maxWidth: '100px' }}>
+                            <button
+                              type="button"
+                              className="btn btn-link p-0 text-dark border-0 fw-bold text-decoration-none"
+                              style={{ width: '20px', fontSize: '16px', lineHeight: 1 }}
+                              onClick={() => handleQuantityChange(item, item.quantity - 1)}
+                              aria-label={`Decrease quantity of ${item.name}`}
+                            >
+                              -
+                            </button>
+                            <span className="mx-2 small fw-semibold" style={{ minWidth: '15px', textAlign: 'center' }}>{item.quantity}</span>
+                            <button
+                              type="button"
+                              className="btn btn-link p-0 text-dark border-0 fw-bold text-decoration-none"
+                              style={{ width: '20px', fontSize: '16px', lineHeight: 1 }}
+                              onClick={() => handleQuantityChange(item, item.quantity + 1)}
+                              aria-label={`Increase quantity of ${item.name}`}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Delete Button */}
+                        <div className="col-2 col-md-2 text-end">
+                          <button
+                            type="button"
+                            className="btn btn-link p-0 text-danger border-0"
+                            onClick={() => handleRemoveItem(item)}
+                            aria-label={`Remove ${item.name} from cart`}
+                          >
+                            <i className="bi bi-trash fs-5" aria-hidden="true"></i>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-md-2 text-end">
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => handleRemoveItem(item)}
-                        aria-label={`Remove ${item.name} from cart`}
-                      >
-                        <i className="bi bi-trash" aria-hidden="true"></i>
-                      </button>
                     </div>
                   </div>
                 </div>

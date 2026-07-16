@@ -1,20 +1,19 @@
 import React from 'react';
 import paymentImage from '../../assets/Frame 53.png';
-// import './Footer.css'
+import './Footer.css';
 const Footer = () => (
   <div className="position-relative" style={{ background: '#F0F0F0' }}>
 
     {/* Newsletter Floating Section */}
     <div
-      className=" container position-absolute start-50 translate-middle-x py-5 footer-section"
+      className="container py-5 footer-section"
       style={{
-        top: '-25%',
         width: '100%',
       }}
     >
       <div className="newsletter-box bg-black text-white rounded-4 p-4 p-md-5 shadow d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
         <h4
-          className=" container text-md-start mb-3 mb-md-0"
+          className="text-center text-md-start mb-3 mb-md-0"
           style={{
             fontFamily: 'Integral CF',
             fontWeight: 700,
@@ -52,7 +51,7 @@ const Footer = () => (
       <div className="container pt-5">
 
         {/* Links */}
-        <div className="container row text-start pt-5 mt-5">
+        <div className="row text-start pt-5 mt-5">
           <div className="col-12 col-md-3 mb-4 text-md-start">
             <h5 className="fw-bold mb-3 fw-bold heading-integral" style={{ fontSize: '30px' }}>SHOP.CO</h5>
 

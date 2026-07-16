@@ -25,7 +25,20 @@ const ShopLayout = ({ searchQuery, setSearchQuery }) => {
       {/* Grid wrapper */}
       <div className="row g-4">
         <div className="col-12 col-md-4 col-lg-3">
-          <FilterSidebar />
+          <button 
+            className="btn btn-outline-dark w-100 d-md-none mb-3 py-2.5 rounded-pill fw-semibold d-flex align-items-center justify-content-center gap-2"
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#mobileFiltersCollapse" 
+            aria-expanded="false" 
+            aria-controls="mobileFiltersCollapse"
+          >
+            <i className="bi bi-sliders"></i> Filter Products
+          </button>
+          
+          <div className="collapse d-md-block mb-3 mb-md-0" id="mobileFiltersCollapse">
+            <FilterSidebar />
+          </div>
         </div>
         <div className="col-12 col-md-8 col-lg-9">
           <SearchBar value={searchQuery} onChange={setSearchQuery} />

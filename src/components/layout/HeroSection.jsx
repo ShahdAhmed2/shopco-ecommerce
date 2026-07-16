@@ -26,8 +26,8 @@ const HeroSection = () => {
               Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
             </p>
             <div className="text-center text-lg-start">
-              <button 
-                className="btn btn-dark mb-4 custom-btn-mobile" 
+              <button
+                className="btn btn-dark mb-4 custom-btn-mobile"
                 style={{ fontSize: '1rem', borderRadius: '70px', padding: '10px 55px' }}
                 onClick={() => navigate('/shop')}
               >

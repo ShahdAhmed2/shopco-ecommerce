@@ -101,14 +101,34 @@ const RelatedProducts = ({ currentProduct }) => {
   }
 
   return (
-    <div className="row g-4 justify-content-center">
+    <div className="row g-4 justify-content-center flex-nowrap flex-md-wrap overflow-x-auto overflow-x-md-visible pb-3 pt-1 scrollbar-hidden related-products-row">
+      <style>{`
+        @media (max-width: 767px) {
+          .related-products-row {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+            gap: 16px !important;
+            padding-bottom: 12px !important;
+            padding-left: 4px !important;
+            padding-right: 4px !important;
+          }
+          .related-products-row::-webkit-scrollbar {
+            display: none;
+          }
+          .related-product-item {
+            flex: 0 0 200px !important;
+            max-width: 100% !important;
+          }
+        }
+      `}</style>
       {relatedList.map((product) => (
-        <div key={product.id} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+        <div key={product.id} className="col-md-6 col-lg-3 related-product-item">
           <ProductCard
             product={product}
             onAddToCart={handleAddToCart}
-            className="w-100"
-            style={{ maxWidth: '280px' }}
+            className="w-100 animate-entry"
           />
         </div>
       ))}
