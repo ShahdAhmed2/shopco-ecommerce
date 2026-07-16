@@ -2,10 +2,6 @@
   <img src="assets/banner.png" alt="Shop.CO Banner" />
 </p>
 
-# Shop.CO
-
-Modern Full Stack Fashion E-Commerce Platform...
-
 # 🛍️ Shop.CO
 
 ### Modern Full-Stack Fashion E-Commerce Platform
