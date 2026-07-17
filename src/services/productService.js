@@ -1,11 +1,52 @@
 import api from '../api/api';
 import { products as localProducts } from '../data/products';
+import { productImages } from '../assets/products';
+
+const resolveProductImage = (imagePath) => {
+  if (!imagePath || typeof imagePath !== 'string') return imagePath;
+
+  const parts = imagePath.replace(/\\/g, '/').split('/');
+  if (parts.length < 2) return imagePath;
+
+  const filenameWithExt = parts[parts.length - 1];
+  const folderName = parts[parts.length - 2]?.toLowerCase();
+
+  const dotIndex = filenameWithExt.lastIndexOf('.');
+  const baseName = dotIndex !== -1 ? filenameWithExt.slice(0, dotIndex) : filenameWithExt;
+
+  if (folderName && productImages[folderName]) {
+    const categoryImages = productImages[folderName];
+
+    if (categoryImages[baseName]) {
+      return categoryImages[baseName];
+    }
+
+    const normalizedBase = baseName.replace(/[^a-zA-Z0-9]/g, '_');
+    if (categoryImages[normalizedBase]) {
+      return categoryImages[normalizedBase];
+    }
+
+    if (filenameWithExt === 'jeans6.png' && categoryImages['jeans6_png']) {
+      return categoryImages['jeans6_png'];
+    }
+
+    const key = Object.keys(categoryImages).find(
+      (k) => k.toLowerCase() === baseName.toLowerCase() || k.toLowerCase() === normalizedBase.toLowerCase()
+    );
+    if (key) {
+      return categoryImages[key];
+    }
+  }
+
+  return imagePath;
+};
 
 const mapProduct = (p) => {
   if (!p) return p;
   return {
     ...p,
     id: p._id || p.id,
+    image: resolveProductImage(p.image),
   };
 };
 
